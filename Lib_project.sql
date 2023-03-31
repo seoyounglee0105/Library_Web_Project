@@ -37,21 +37,21 @@ CREATE TABLE book (
     FOREIGN KEY (category_id) REFERENCES category(id)
 );
 
-LOAD DATA INFILE 'D:/books.ods'
-INTO TABLE book
-FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n';
+-- 대여
+CREATE TABLE checkoutBook (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id VARCHAR(50) NOT NULL,
+    book_id INT NOT NULL,
+    checkout_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (book_id) REFERENCES book(id)
+);
 
-SHOW FULL COLUMNS FROM librarydb.book;
+-- 반납
 
-ALTER TABLE book CONVERT TO CHARACTER set utf8mb4;
+
 
 DROP TABLE book;
-
-SELECT * FROM book AS b INNER JOIN category AS c ON b.category_id = c.id WHERE category_id = 1 ;
-
-SELECT * FROM book AS b INNER JOIN category AS c ON b.category_id = c.id WHERE b.name LIKE '%g%';
-
-SELECT * FROM book AS b INNER JOIN category AS c ON b.category_id = c.id ORDER BY c.name;
 
 INSERT INTO book (name, writer, publisher, image, category_id, check_out_count, description)
 VALUES 
@@ -95,6 +95,5 @@ VALUES
     ('흔한남매 과학 탐험대 7 : 생물 1', '김언정', '주니어김영사', 'images/32.jpg', 7, 31, '과학을 처음 접하는 아이들이 과학의 주요 내용을 미리 맛볼 수 있는 초등 과학 입문서이다. 흔한남매가 최고의 과학 전문가들과 함께 우주, 지구와 달, 우리 몸, 정글 등을 여행하며 쉽고 재미있게 과학 지식을 배운다. 초등학교 과학 교과서의 내용을 모두 담았고, 생활 과학 정보, 과학 관련 최근 이슈, 우리나라 관련 정보들을 더했다.'),
     ('고양이 해결사 깜냥 5', '홍민정', '창비', 'images/33.jpg', 7, 25, '어린이 독자들의 뜨거운 사랑을 받아 온 화제의 베스트셀러 『고양이 해결사 깜냥』이 다섯 번째 이야기로 돌아왔다. 이번에는 깜냥이 편의점 직원으로 변신해 다양한 손님들을 맞이하며 벌어지는 일들을 그렸다. 저마다 다른 이유로 찾아왔지만, 편의점에서 깜냥을 만난 손님들의 얼굴에는 밝은 웃음이 가득하다. 새롭게 등장한 캐릭터 ‘하품이’의 매력을 발견하는 것도 5권을 읽는 큰 즐거움이다. 4권 이후 1년을 기다려 온 독자들의 부푼 기대에 부응할 신나는 이야기가 펼쳐진다.
 ');
-    
     
 UPDATE book SET is_available = 0 WHERE id = 1;
