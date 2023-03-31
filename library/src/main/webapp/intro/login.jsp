@@ -45,15 +45,18 @@
 	
 	.btn {
 		font-size: 17px;
-		border: hidden;
+		border: 1px solid #4D504F;
 		line-height: 0;
 		border-radius: 8px;
-		height: 27px;
+		height: 30px;
 		width: 50px;
 		text-align: center;
-		background-color: #95D7C7;
+		background-color: #E7FCF7;
 	}
 	
+	.btn:hover {
+		background-color: #BCEBE0;
+	}
 	
 	.form-group input {
 		margin-bottom: 10px;

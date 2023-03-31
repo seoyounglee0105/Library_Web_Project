@@ -30,21 +30,6 @@ section {
 	margin-bottom: 5px;
 	font-size: 20px;
 }
- 
-
-.form-group input:focus {
-	background-color: #D6F5E7;
-}
-
-.btn {
-	font-size: 17px;
-	line-height: 0;
-	border-radius: 8px;
-	height: 27px;
-	width: 50px;
-	text-align: center;
-	background-color: white;
-}
 
 .form-btn {
 	display: flex;
@@ -52,6 +37,28 @@ section {
 	margin-top: 20px;
 }
 
+.btn {
+	font-size: 17px;
+	border: 1px solid #4D504F;
+	line-height: 0;
+	border-radius: 8px;
+	height: 30px;
+	width: 50px;
+	text-align: center;
+	background-color: #E7FCF7;
+}
+
 .btn:hover {
-	background-color: #95D7C7;
+	background-color: #BCEBE0;
+	cursor: pointer;
+}
+
+.form-group input {
+	margin-bottom: 10px;
+	height: 30px;
+	border-radius: 8px;
+	padding: 0 5px;
+	font-size: 18px;
+	line-height: 0;
+	border: 2px solid #4D504F;
 }

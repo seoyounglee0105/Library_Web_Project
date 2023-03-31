@@ -61,39 +61,6 @@ if ("signUp".equals(action)) {
 <link rel = "stylesheet" href = "../css/main.css">
 <link rel = "stylesheet" href = "../css/intro.css">
 <style type="text/css">
-
-		.title {
-		font-family: 'Noto Sans KR', sans-serif;
-		margin: 8px;
-		font-size: 30px;
-	}
-	
-	.form-intro {
-		padding: 20px;
-		width: 300px;
-	}
-	
-	.btn {
-		font-size: 17px;
-		border: hidden;
-		line-height: 0;
-		border-radius: 8px;
-		height: 27px;
-		width: 50px;
-		text-align: center;
-		background-color: #95D7C7;
-	}
-	
-	
-.form-group input {
-	margin-bottom: 10px;
-	height: 30px;
-	border-radius: 8px;
-	padding: 0 5px;
-	font-size: 18px;
-	line-height: 0;
-	border: 2px solid #4D504F;
-}
 </style>
 </head>
 <body>
