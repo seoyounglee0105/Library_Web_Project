@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+nav {
+	background-color: white;
+	border: 5px solid #C6EBDE;
+	border-radius: 30px 0px 0px 30px;
+	flex-basis: 200px;
+	flex-shrink: 0; /* 고정크기 */
+	margin: 0px 0px 25px 50px;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.1);
+}
+
+nav h1 {
+	margin-bottom: 30px;
+}
+
+.category_table {
+	border-collapse: collapse;
+	border-color: #D1D5D4;
+	
+}
+
+.category_table td {
+	border-left: hidden;
+	border-right: hidden;
+	width: 160px;
+	text-align: center;
+	padding: 5px 0;
+	font-size: 20px;
+}
+
+.category_table td a {
+	color: #1A606B;
+}
+
+.category_table td a:hover {
+	color: #80BFB5;
+}
+
+.table_last {
+	border-bottom: hidden;
+}
+
