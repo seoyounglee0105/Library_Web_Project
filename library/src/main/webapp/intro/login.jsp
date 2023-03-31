@@ -32,41 +32,9 @@
 <link rel = "stylesheet" href = "../css/main.css">
 <link rel = "stylesheet" href = "../css/intro.css">
 <style type="text/css">
-	.title {
-		font-family: 'Noto Sans KR', sans-serif;
-		margin: 8px;
-		font-size: 30px;
-	}
+
 	
-	.form-intro {
-		padding: 20px;
-		width: 300px;
-	}
-	
-	.btn {
-		font-size: 17px;
-		border: 1px solid #4D504F;
-		line-height: 0;
-		border-radius: 8px;
-		height: 30px;
-		width: 50px;
-		text-align: center;
-		background-color: #E7FCF7;
-	}
-	
-	.btn:hover {
-		background-color: #BCEBE0;
-	}
-	
-	.form-group input {
-		margin-bottom: 10px;
-		height: 30px;
-		border-radius: 8px;
-		padding: 0 5px;
-		font-size: 18px;
-		line-height: 0;
-		border: 2px solid #4D504F;
-	}
+
 
 </style>
 </head>
