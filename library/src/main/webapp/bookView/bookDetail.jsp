@@ -31,7 +31,7 @@
 		width: 300px;
 		height: 400px;
 		border: 3px solid #3F3F3F;
-		margin-right: 30px;
+		margin-right: 40px;
 		margin-bottom: 40px;
 	}
 	
@@ -49,7 +49,12 @@
 		align-items: flex-start;
 		font-size: 18px;
 	}
-
+	
+	.check_out_btn {
+		margin-top: 10px;
+		font-size: 25px;
+		width: 110px;
+	}
 	
 </style>
 </head>
@@ -91,23 +96,27 @@
 						<p><span style="color: #F5CF14;">★★★★★</span>&nbsp;<span style="color: gray;">(9.85)</span></p>
 						
 						<br>
-						<p class="book_count">총 대여 횟수 : ${book.checkOutCount}회</p>
-						<p class="book_available">
-							대여 가능 여부 :
-							<c:choose>
-								<c:when test="${book.isAvailable == true}">
-									<span style="color: blue">가능</span>
-								</c:when>
-								<c:otherwise>
-									<span style="color: red">불가능</span>
-								</c:otherwise>
-							</c:choose>
-						</p>
-						<!-- 대여 기능 만들면 연결 -->
-						<form>
-							<input type="hidden" name="">
-							<button type="button">대여하기</button>
-						</form>
+						<div class="check_out">
+							<div>
+								<p class="book_count">총 대여 횟수 : ${book.checkOutCount}회</p>
+								<p class="book_available">
+									대여 가능 여부 :
+									<c:choose>
+										<c:when test="${book.isAvailable == true}">
+											<span style="color: blue">가능</span>
+										</c:when>
+										<c:otherwise>
+											<span style="color: red">불가능</span>
+										</c:otherwise>
+									</c:choose>
+								</p>
+							</div>
+							<!-- 대여 기능 만들면 연결 -->
+							<form class="check_out_form">
+								<input type="hidden" name="">
+								<button class="check_out_btn" type="button">대여하기</button>
+							</form>
+						</div>
 					</div>
 				</div>
 				<hr style="margin-bottom: 10px;">

@@ -38,13 +38,12 @@ section {
 
 .btn {
 	font-size: 17px;
-	border: hidden;
 	line-height: 0;
 	border-radius: 8px;
 	height: 27px;
 	width: 50px;
 	text-align: center;
-	background-color: #95D7C7;
+	background-color: white;
 }
 
 .form-btn {
@@ -54,5 +53,5 @@ section {
 }
 
 .btn:hover {
-	background-color: #4B9A96;
+	background-color: #95D7C7;
 }
