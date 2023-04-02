@@ -62,3 +62,11 @@ section {
 	line-height: 0;
 	border: 2px solid #4D504F;
 }
+
+.form-group input:focus {
+	background-color: #c8ebe2;
+}
+
+section {
+	margin: 0 !important;
+}

@@ -1,4 +1,4 @@
-package com.young.lib.servlet;
+package com.young.lib.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.young.lib.controller.BookController;
 import com.young.lib.dto.BookDTO;
+import com.young.lib.service.BookService;
 
 @WebServlet("/bookList")
 public class BookListController extends HttpServlet {
@@ -21,21 +21,21 @@ public class BookListController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BookController bookController = new BookController();
+		BookService bookService = new BookService();
 		request.setCharacterEncoding("UTF-8");
-		ArrayList<BookDTO> resultList = null;
+		ArrayList<BookDTO> resultList = new ArrayList<>();
 		
 		String menu = request.getParameter("menu");
 		String orderby = request.getParameter("orderby");
 		if ("all".equals(menu)) {
-			if ("bookName".equals(orderby)) {
-				resultList = bookController.requestOrderByAll("b.name");				
+			if ("bookName".equals(orderby)) { 
+				resultList = bookService.orderByAllBooks("b.name");				
 			} else if ("index".equals(orderby)) {
-				resultList = bookController.requestOrderByAll("b.id DESC");				
+				resultList = bookService.orderByAllBooks("b.id DESC");				
 			} else if ("count".equals(orderby)) {
-				resultList = bookController.requestOrderByAll("check_out_count DESC");				
+				resultList = bookService.orderByAllBooks("check_out_count DESC");				
 			} else {
-				resultList = bookController.requestViewAll();				
+				resultList = bookService.viewAllBooks();				
 			}
 			request.setAttribute("list", resultList);
 			
@@ -47,13 +47,13 @@ public class BookListController extends HttpServlet {
 			
 		} else if ("it".equals(menu)) {
 			if ("bookName".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(1, "b.name");				
+				resultList = bookService.orderByCategoryBooks(1, "b.name");				
 			} else if ("index".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(1, "b.id DESC");				
+				resultList = bookService.orderByCategoryBooks(1, "b.id DESC");				
 			} else if ("count".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(1, "check_out_count DESC");				
+				resultList = bookService.orderByCategoryBooks(1, "check_out_count DESC");				
 			} else {
-				resultList = bookController.requestViewCategory(1);
+				resultList = bookService.viewCategoryBooks(1);
 			}
 			request.setAttribute("list", resultList);
 			
@@ -65,13 +65,13 @@ public class BookListController extends HttpServlet {
 			
 		} else if ("novel".equals(menu)) {
 			if ("bookName".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(2, "b.name");				
+				resultList = bookService.orderByCategoryBooks(2, "b.name");				
 			} else if ("index".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(2, "b.id DESC");				
+				resultList = bookService.orderByCategoryBooks(2, "b.id DESC");				
 			} else if ("count".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(2, "check_out_count DESC");	
+				resultList = bookService.orderByCategoryBooks(2, "check_out_count DESC");	
 			} else {
-				resultList = bookController.requestViewCategory(2);
+				resultList = bookService.viewCategoryBooks(2);
 			}
 			request.setAttribute("list", resultList);
 			
@@ -83,13 +83,13 @@ public class BookListController extends HttpServlet {
 
 		} else if ("hobby".equals(menu)) {
 			if ("bookName".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(3, "b.name");				
+				resultList = bookService.orderByCategoryBooks(3, "b.name");				
 			} else if ("index".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(3, "b.id DESC");				
+				resultList = bookService.orderByCategoryBooks(3, "b.id DESC");				
 			} else if ("count".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(3, "check_out_count DESC");	
+				resultList = bookService.orderByCategoryBooks(3, "check_out_count DESC");	
 			} else {
-				resultList = bookController.requestViewCategory(3);
+				resultList = bookService.viewCategoryBooks(3);
 			}
 			request.setAttribute("list", resultList);
 			
@@ -101,13 +101,13 @@ public class BookListController extends HttpServlet {
 
 		} else if ("economy".equals(menu)) {
 			if ("bookName".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(4, "b.name");				
+				resultList = bookService.orderByCategoryBooks(4, "b.name");				
 			} else if ("index".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(4, "b.id DESC");				
+				resultList = bookService.orderByCategoryBooks(4, "b.id DESC");				
 			} else if ("count".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(4, "check_out_count DESC");	
+				resultList = bookService.orderByCategoryBooks(4, "check_out_count DESC");	
 			} else {
-				resultList = bookController.requestViewCategory(4);
+				resultList = bookService.viewCategoryBooks(4);
 			}
 			request.setAttribute("list", resultList);
 			
@@ -119,13 +119,13 @@ public class BookListController extends HttpServlet {
 
 		} else if ("improvement".equals(menu)) {
 			if ("bookName".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(5, "b.name");				
+				resultList = bookService.orderByCategoryBooks(5, "b.name");				
 			} else if ("index".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(5, "b.id DESC");				
+				resultList = bookService.orderByCategoryBooks(5, "b.id DESC");				
 			} else if ("count".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(5, "check_out_count DESC");	
+				resultList = bookService.orderByCategoryBooks(5, "check_out_count DESC");	
 			} else {
-				resultList = bookController.requestViewCategory(5);
+				resultList = bookService.viewCategoryBooks(5);
 			}
 			request.setAttribute("list", resultList);
 			
@@ -137,13 +137,13 @@ public class BookListController extends HttpServlet {
 
 		} else if ("cook".equals(menu)) {
 			if ("bookName".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(6, "b.name");				
+				resultList = bookService.orderByCategoryBooks(6, "b.name");				
 			} else if ("index".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(6, "b.id DESC");				
+				resultList = bookService.orderByCategoryBooks(6, "b.id DESC");				
 			} else if ("count".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(6, "check_out_count DESC");	
+				resultList = bookService.orderByCategoryBooks(6, "check_out_count DESC");	
 			} else {
-				resultList = bookController.requestViewCategory(6);
+				resultList = bookService.viewCategoryBooks(6);
 			}
 			request.setAttribute("list", resultList);
 			
@@ -155,13 +155,13 @@ public class BookListController extends HttpServlet {
 
 		} else if ("child".equals(menu)) {
 			if ("bookName".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(7, "b.name");				
+				resultList = bookService.orderByCategoryBooks(7, "b.name");				
 			} else if ("index".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(7, "b.id DESC");				
+				resultList = bookService.orderByCategoryBooks(7, "b.id DESC");				
 			} else if ("count".equals(orderby)) {
-				resultList = bookController.requestOrderByCategory(7, "b.check_out_count DESC");	
+				resultList = bookService.orderByCategoryBooks(7, "b.check_out_count DESC");	
 			} else {
-				resultList = bookController.requestViewCategory(7);
+				resultList = bookService.viewCategoryBooks(7);
 			}
 			request.setAttribute("list", resultList);
 			
@@ -176,7 +176,7 @@ public class BookListController extends HttpServlet {
 			
 			// 공백으로만 이뤄진 문자열이 입력되었다면
 			if (search.replace(" ", "").equals("") == false) {
-				resultList = bookController.requestViewSearch(search);
+				resultList = bookService.searchBooks(search);
 				
 				// 페이지 수 구할 예정
 				// int pageCount = resultList.size();

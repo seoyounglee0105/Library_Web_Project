@@ -54,4 +54,30 @@ public class BookService {
 		resultDto = bookDAO.select("b.id", bookId).get(0);
 		return resultDto;
 	}
+	
+	// 대여량 갱신
+	public int updateCheckoutCount(int bookId) {
+		int resultCount = 0;
+		
+		// 현재 대여량 가져오기
+		int currentCount = bookInfo(bookId).getCheckOutCount();
+		
+		resultCount = bookDAO.update(currentCount + 1, bookId);		
+		return resultCount;
+	}
+	
+	// 대여 가능 여부 갱신
+	public int updateIsAvailable(int bookId) {
+		int resultCount = 0;
+		
+		// 현재 대여 가능 여부 가져오기
+		boolean currentState = bookInfo(bookId).getIsAvailable();
+		
+		if (currentState == true) {
+			resultCount = bookDAO.update(false, bookId);		
+		} else {
+			resultCount = bookDAO.update(true, bookId);		
+		}
+		return resultCount;
+	}
 }

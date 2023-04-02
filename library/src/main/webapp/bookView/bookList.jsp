@@ -2,7 +2,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%
@@ -182,6 +181,7 @@
 	.book_split:last-of-type {
 		visibility: hidden;
 	}
+	
 </style>
 </head>
 <body>
@@ -219,9 +219,10 @@
 				}
 				%>
 				
-				<!-- 검색 결과가 null이라면 -->
-				<% %>
-				
+				<!-- 검색 결과가 없다면 -->
+				<c:if test="${list.size() == 0}">
+					<p style="color: #1A606B; font-size: 20px;">검색 결과가 없습니다.</p>
+				</c:if>
 				
 				<c:forEach var="i" items="${list}">
 					<div class="book">
@@ -254,6 +255,7 @@
 
 			</section>
 		</div>
+		<jsp:include page="../layout/footer.jsp" />
 	</div>
 	<!-- end of page-container -->
 

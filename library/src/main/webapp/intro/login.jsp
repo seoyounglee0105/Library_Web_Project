@@ -1,5 +1,5 @@
+<%@page import="com.young.lib.service.UserService"%>
 <%@page import="com.young.lib.dto.UserDTO"%>
-<%@page import="com.young.lib.controller.UserController"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -10,14 +10,14 @@
 	// 최초로 접근했을 때는 null이라서 아래 코드 실행 X
 	// 로그인 버튼을 누르고 나면 null이 아니라서 아래 코드 실행 O
 	if (id != null && password != null) {
-		UserController userController = new UserController();
+		UserService userService = new UserService();
 		
 		// null : 실패
-		UserDTO loginResult = userController.requestLogin(id, password);
+		UserDTO loginResult = userService.login(id, password);
 		// null이 아니라면 로그인 성공
 		if (loginResult != null) {
 			session.setAttribute("id", id);
-			response.sendRedirect("../index.jsp");
+			out.println("<script> alert('환영합니다!'); location.href='/library/index.jsp';</script>");
 		} else {  // 로그인 실패 시 경고 창을 띄우고 다시 login.jsp로 이동
 			out.println("<script> alert('로그인에 실패했습니다.'); history.back(); </script>");
 		}
@@ -32,10 +32,9 @@
 <link rel = "stylesheet" href = "../css/main.css">
 <link rel = "stylesheet" href = "../css/intro.css">
 <style type="text/css">
-
-	
-
-
+	.form-group input:focus {
+		background-color: #c8ebe2;
+	}
 </style>
 </head>
 <body>
@@ -62,6 +61,7 @@
 				</form>
 			</section>
 		</div>
+		<jsp:include page="../layout/footer.jsp" />
 	</div> <!-- end of page-container -->
 	
 </body>

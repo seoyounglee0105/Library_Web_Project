@@ -1,38 +1,44 @@
-package com.young.lib.servlet;
+package com.young.lib.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.young.lib.controller.BookController;
 import com.young.lib.dto.BookDTO;
+import com.young.lib.dto.CheckoutDTO;
+import com.young.lib.service.BookService;
+import com.young.lib.service.CheckoutService;
 
-/**
- * Servlet implementation class bookDetail
- */
 @WebServlet("/bookDetail")
 public class BookDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public BookDetailController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BookController bookController = new BookController();
+		BookService bookService = new BookService();
+		CheckoutService checkoutService = new CheckoutService();
 		request.setCharacterEncoding("UTF-8");
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
-		BookDTO targetBook = bookController.requestBookInfo(bookId);
+		String action = request.getParameter("action");
+		request.setAttribute("action", action);
+		
+		String userId = (String) request.getSession().getAttribute("id");
+		
+		// 대여하기
+		if ("checkout".equals(action)) {
+			CheckoutDTO checkoutDTO = new CheckoutDTO(userId, bookId);
+			checkoutService.checkoutBook(checkoutDTO);
+		}
+		
+		BookDTO targetBook = bookService.bookInfo(bookId);
 		request.setAttribute("book", targetBook);
 		request.getRequestDispatcher("bookView/bookDetail.jsp").forward(request, response);
 	}

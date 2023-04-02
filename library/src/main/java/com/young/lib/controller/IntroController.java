@@ -1,13 +1,15 @@
-package com.young.lib.servlet;
+package com.young.lib.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.young.lib.controller.UserController;
+
 import com.young.lib.dto.UserDTO;
+import com.young.lib.service.UserService;
 
 // 회원가입, 로그인
 
@@ -23,13 +25,10 @@ public class IntroController extends HttpServlet {
     // http://localhost:8080/library/intro
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserController userController = new UserController();
 		
 		String menu = request.getParameter("menu");
 		if ("login".equals(menu)) {
-			// 로그인된 상태랑 로그인 안 된 상태 구분하기
-			response.sendRedirect("/library/intro/login.jsp");
-			
+			response.sendRedirect("/library/intro/login.jsp");		
 			
 		} else if ("signUp".equals(menu)) {
 			response.sendRedirect("/library/intro/signUp.jsp");
@@ -40,7 +39,7 @@ public class IntroController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		UserController userController = new UserController();
+		UserService userService = new UserService();
 		
 		String action = request.getParameter("action");
 		if ("signUp".equals(action)) {
@@ -52,7 +51,7 @@ public class IntroController extends HttpServlet {
 			String email = request.getParameter("email");
 			UserDTO userDTO = new UserDTO(id, password, name, phoneNumber, address, email);
 			
-			int responseType = userController.requestSignUp(userDTO);
+			int responseType = userService.signUp(userDTO);
 			
 			if (responseType == 1) {
 				

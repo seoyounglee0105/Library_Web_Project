@@ -7,7 +7,16 @@
 	String id = (String) session.getAttribute("id");
 
 	// ${book}으로 targetBookDto 가져올 수 있음
-%>
+	
+	request.setCharacterEncoding("UTF-8");
+	
+	%>
+	
+<c:if test="${action == 'checkout'}">
+	<%
+		out.println("<script>alert('대여되었습니다.');</script>");
+	%>
+</c:if>
 
 <!DOCTYPE html>
 <html>
@@ -17,8 +26,11 @@
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/category.css">
 <style type="text/css">
+
 	section h3 {
 		margin-bottom: 30px;
+		color: #1A606B; 
+		font-size: 20px;
 	}
 
 	.book {
@@ -80,7 +92,7 @@
 			<jsp:include page="../layout/category.jsp" />
 
 			<section>
-				<h3 style="color: #1A606B; font-size: 20px;">상세 페이지</h3>
+				<h3>상세 페이지</h3>
 				
 				<div class="book">
 					<img class="book_image" src="/library/${book.image}">
@@ -93,7 +105,7 @@
 						</p>
 						<br>
 						<!-- 나중에 리뷰 생기면 바꾸기 -->
-						<p><span style="color: #F5CF14;">★★★★★</span>&nbsp;<span style="color: gray;">(9.85)</span></p>
+						<p><span style="color: #F5CF14;">★★★★★</span>&nbsp;<span style="color: gray;">(4.85)</span></p>
 						
 						<br>
 						<div class="check_out">
@@ -112,10 +124,16 @@
 								</p>
 							</div>
 							<!-- 대여 기능 만들면 연결 -->
-							<form class="check_out_form">
-								<input type="hidden" name="">
-								<button class="check_out_btn" type="button">대여하기</button>
-							</form>
+							<br>
+							<c:if test="${book.isAvailable == true && id != null}">
+								<form class="check_out_form" action="/library/bookDetail?bookId=${book.id}&action=checkout" method="post">
+									<input type="hidden" name="bookId" value="${book.id}">
+									<button class="check_out_btn" type="submit">대여하기</button>
+								</form>
+							</c:if>
+							<c:if test="${book.isAvailable == true && id == null}">
+								<p style="color: gray;"> 로그인 후 대여 가능합니다.</p>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -125,6 +143,7 @@
 				<p class="book_description" style="text-indent: 10px;">${book.description}</p>
 			</section>
 		</div>
+		<jsp:include page="../layout/footer.jsp" />
 	</div>
 	<!-- end of page-container -->
 </body>

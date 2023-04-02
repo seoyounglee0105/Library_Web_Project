@@ -23,4 +23,7 @@ public interface IBookDAO {
 	// 대여량 갱신
 	int update(int checkOutCount, int bookId);
 	
+	// 대여 가능 여부 갱신
+	int update(boolean isAvailable, int bookId);
+	
 }

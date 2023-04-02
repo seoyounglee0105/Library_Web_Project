@@ -1,9 +1,6 @@
 CREATE DATABASE librarydb;
 USE librarydb;
 
-SELECT * FROM book;
-SELECT * FROM book WHERE name LIKE '%문%';
-
 -- 회원
 CREATE TABLE user (
 	id VARCHAR(50) PRIMARY KEY,
@@ -38,20 +35,25 @@ CREATE TABLE book (
 );
 
 -- 대여
-CREATE TABLE checkoutBook (
+CREATE TABLE checkout (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     user_id VARCHAR(50) NOT NULL,
     book_id INT NOT NULL,
     checkout_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_return boolean DEFAULT false,
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (book_id) REFERENCES book(id)
 );
 
--- 반납
+INSERT INTO checkout (user_id, book_id)
+VALUES ('abc', 1);
 
+SELECT * FROM checkout;
+SELECT * FROM book;
+SELECT * FROM user;
 
-
-DROP TABLE book;
+DELETE FROM checkout;
+UPDATE book SET is_available = true;
 
 INSERT INTO book (name, writer, publisher, image, category_id, check_out_count, description)
 VALUES 

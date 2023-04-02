@@ -135,13 +135,6 @@ public class BookDAO implements IBookDAO {
 		return resultList;
 	}
 
-	// 대여량 +
-	@Override
-	public int update(int checkOutCount, int bookId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	// 전체 조회 - 정렬
 	@Override
 	public ArrayList<BookDTO> selectOrder(String orderColumn) {
@@ -217,6 +210,58 @@ public class BookDAO implements IBookDAO {
 			}
 		}
 		return resultList;
+	}
+
+	// 대여량 갱신
+	@Override
+	public int update(int checkOutCount, int bookId) {
+		int resultCount = 0;
+		String query = " UPDATE book SET check_out_count = ? WHERE id = ? ";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, checkOutCount);
+			pstmt.setInt(2, bookId);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return resultCount;
+	}
+	
+	// 대여 가능 여부 갱신
+	@Override
+	public int update(boolean isAvailable, int bookId) {
+		int resultCount = 0;
+		String query = " UPDATE book SET is_available = ? WHERE id = ? ";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, isAvailable);
+			pstmt.setInt(2, bookId);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return resultCount;
 	}
 
 

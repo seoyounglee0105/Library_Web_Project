@@ -1,4 +1,4 @@
-<%@page import="com.young.lib.controller.UserController"%>
+<%@page import="com.young.lib.service.UserService"%>
 <%@page import="com.young.lib.dto.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -12,7 +12,7 @@
 request.setCharacterEncoding("UTF-8");
 String action = request.getParameter("action");
 if ("signUp".equals(action)) {
-	UserController userController = new UserController();
+	UserService userService = new UserService();
 
 	String id = request.getParameter("id");
 	String password = request.getParameter("password");
@@ -22,7 +22,7 @@ if ("signUp".equals(action)) {
 	String email = request.getParameter("email");
 	UserDTO userDTO = new UserDTO(id, password, name, phoneNumber, address, email);
 	
-	int responseType = userController.requestSignUp(userDTO);
+	int responseType = userService.signUp(userDTO);
 	// 0 : 실패, 1 : 성공, 2 : 아이디 중복, 3 : 전화번호 중복, 4 : 전화번호 형식 틀림
 	if (responseType == 1) { %>
 		<script>
@@ -61,6 +61,9 @@ if ("signUp".equals(action)) {
 <link rel = "stylesheet" href = "../css/main.css">
 <link rel = "stylesheet" href = "../css/intro.css">
 <style type="text/css">
+	.form-group input:focus {
+		background-color: #c8ebe2;
+	}
 </style>
 </head>
 <body>
@@ -103,6 +106,7 @@ if ("signUp".equals(action)) {
 				</form>
 			</section>
 		</div>
+		<jsp:include page="../layout/footer.jsp" />
 	</div> <!-- end of page-container -->
 	
 </body>

@@ -1,11 +1,11 @@
-<%@page import="com.young.lib.controller.UserController"%>
+<%@page import="com.young.lib.service.UserService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
     <%
 	    String id = (String) session.getAttribute("id");
-    	UserController userController = new UserController();
-    	String name = userController.requestUserInfo(id).getName();
+    	UserService userService = new UserService();
+    	String name = userService.userInfo(id).getName();
     %>
     
 		<div class="top-container">
@@ -13,7 +13,7 @@
 				<h4 class="li_name"><%=name %> 님</h4>
 				<ul class="right_ul">
 					<li><a href="/library/intro/logout.jsp">로그아웃</a>
-					<li><a href="#">마이페이지</a>
+					<li><a href="/library/myPage">마이페이지</a>
 				</ul>
 			</header>
 
