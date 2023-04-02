@@ -59,11 +59,11 @@ if ("signUp".equals(action)) {
 <meta charset="UTF-8">
 <title>전자 도서관</title>
 <link rel = "stylesheet" href = "../css/main.css">
-<link rel = "stylesheet" href = "../css/intro.css">
+<link rel = "stylesheet" href = "../css/form.css">
 <style type="text/css">
-	.form-group input:focus {
-		background-color: #c8ebe2;
-	}
+
+
+	
 </style>
 </head>
 <body>
@@ -90,11 +90,11 @@ if ("signUp".equals(action)) {
 					</div>
 					<div class="form-group">
 						<label for="phoneNumber">전화번호 *</label>
-						<input name="phoneNumber" id="phoneNumber" type="tel" required="required" placeholder="###-####-####">					
+						<input name="phoneNumber" id="phoneNumber" type="tel" required="required" placeholder="ex) 010-1111-1111">					
 					</div>
 					<div class="form-group">
 						<label for="address">주소 *</label>
-						<input name="address"  id="address" type="text" required="required">					
+						<input name="address"  id="address" type="text" required="required" placeholder="ex) 부산광역시 수영구">					
 					</div>
 					<div class="form-group">
 						<label for="email">이메일</label>

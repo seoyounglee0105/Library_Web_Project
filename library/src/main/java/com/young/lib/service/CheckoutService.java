@@ -24,14 +24,35 @@ public class CheckoutService {
 		bookService.updateCheckoutCount(checkoutDTO.getBookId());
 		
 		// 대여 가능 여부 갱신
-		bookService.updateIsAvailable(checkoutDTO.getBookId());
+		bookService.updateIsAvailable(false, checkoutDTO.getBookId());
 		
 		return resultCount;
 	}
 	
+	// 회원별 대여 기록 조회
 	public ArrayList<CheckoutDTO> viewCheckoutByUserId(String userId) {
 		ArrayList<CheckoutDTO> resultList = new ArrayList<>();
 		resultList = checkoutDAO.select(userId);
 		return resultList;
 	}
+	
+	// 특정 대여 기록 조회
+	public CheckoutDTO viewCheckoutById(int id) {
+		CheckoutDTO resultDto = null;
+		resultDto = checkoutDAO.select(id);
+		return resultDto;
+	}
+	
+	// 반납하기
+	public int returnBook(CheckoutDTO checkoutDTO) {
+		int resultCount = 0;
+		resultCount = checkoutDAO.update(checkoutDTO.getId());
+		
+		// 대여 가능 여부 갱신
+		bookService.updateIsAvailable(true, checkoutDTO.getBookId());
+		
+		return resultCount;
+	}
+	
+	
 }

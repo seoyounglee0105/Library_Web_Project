@@ -67,17 +67,9 @@ public class BookService {
 	}
 	
 	// 대여 가능 여부 갱신
-	public int updateIsAvailable(int bookId) {
+	public int updateIsAvailable(boolean isAvailable, int bookId) {
 		int resultCount = 0;
-		
-		// 현재 대여 가능 여부 가져오기
-		boolean currentState = bookInfo(bookId).getIsAvailable();
-		
-		if (currentState == true) {
-			resultCount = bookDAO.update(false, bookId);		
-		} else {
-			resultCount = bookDAO.update(true, bookId);		
-		}
+		resultCount = bookDAO.update(isAvailable, bookId);		
 		return resultCount;
 	}
 }

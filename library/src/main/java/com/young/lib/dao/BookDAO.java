@@ -21,7 +21,7 @@ public class BookDAO implements IBookDAO {
 	@Override
 	public ArrayList<BookDTO> select() {
 		ArrayList<BookDTO> resultList = new ArrayList<>();
-		String sql = " SELECT * FROM book AS b INNER JOIN category AS c ON b.category_id = c.id ";
+		String sql = " SELECT * FROM book AS b INNER JOIN category AS c ON b.category_id = c.id ORDER BY b.id ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {

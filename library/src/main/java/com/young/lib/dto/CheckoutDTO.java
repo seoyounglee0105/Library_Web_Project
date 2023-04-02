@@ -1,6 +1,6 @@
 package com.young.lib.dto;
 
-public class CheckoutDTO {
+public class CheckoutDTO extends BookDTO {
 
 	private int id;
 	private String userId;
@@ -49,11 +49,11 @@ public class CheckoutDTO {
 		this.checkoutDate = checkoutDate;
 	}
 
-	public boolean isReturn() {
+	public boolean getIsReturn() {
 		return isReturn;
 	}
 
-	public void setReturn(boolean isReturn) {
+	public void setIsReturn(boolean isReturn) {
 		this.isReturn = isReturn;
 	}
 

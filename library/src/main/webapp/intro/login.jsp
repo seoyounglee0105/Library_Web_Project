@@ -30,11 +30,11 @@
 <meta charset="UTF-8">
 <title>전자 도서관</title>
 <link rel = "stylesheet" href = "../css/main.css">
-<link rel = "stylesheet" href = "../css/intro.css">
+<link rel = "stylesheet" href = "../css/form.css">
 <style type="text/css">
-	.form-group input:focus {
-		background-color: #c8ebe2;
-	}
+	
+
+	
 </style>
 </head>
 <body>

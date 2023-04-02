@@ -7,6 +7,11 @@
 	String id = (String) session.getAttribute("id");
 	String menu = request.getParameter("menu");
 %>
+	<!-- 입력한 전화번호가 틀렸다면 -->
+	<c:if test="${result == 0}">
+		<% out.print("<script>alert('비밀번호가 틀렸습니다.');</script>"); %>		
+	</c:if>
+
 
 <!DOCTYPE html>
 <html>
@@ -23,8 +28,40 @@
 		font-size: 20px;
 	}
 	
-	.myPage_updateInfo {
+	.myPage_userInfo {
 		color: #80BFB5 !important;
+	}
+	
+	.pwCheck {
+		display: flex;
+		align-items: center;
+	}
+	
+	.pwCheck input {
+		font-size: 16px;
+		border-radius: 5px;
+		border-width: thin;
+	}
+	
+	.btn {
+		font-size: 15px;
+		line-height: 0;
+		border-radius: 8px;
+		border-width: thin;
+		height: 28px;
+		width: 50px;
+		text-align: center;
+		margin-left: 10px;
+		background-color: #B0DFD3;
+	}
+
+	.btn:hover {
+		background-color: #80BFB5;
+		cursor: pointer;
+	}
+	
+	.pwCheck input:focus {
+		background-color: #c8ebe2;
 	}
 	
 </style>
@@ -40,6 +77,14 @@
 				
 			<section>
 				<h3>회원 정보 수정</h3>
+				
+				<p style="margin-bottom: 10px;">본인 확인을 위해 비밀번호를 입력해주세요.</p>
+				
+				<form action="/library/myPage?menu=userInfo&action=pwCheck" method="post" class="pwCheck">
+					<input type="password" name="password" required="required">
+					<button type="submit" class="btn">확인</button>
+				</form>
+				
 			</section>
 		</div>
 		<jsp:include page="../layout/footer.jsp" />

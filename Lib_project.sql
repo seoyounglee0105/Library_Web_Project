@@ -7,8 +7,8 @@ CREATE TABLE user (
     password VARCHAR(50) NOT NULL,
     name VARCHAR(20) NOT NULL,
 	phone_number CHAR(13) UNIQUE NOT NULL,
-    email VARCHAR(50), -- NULL 허용 
-    address VARCHAR(200) NOT NULL
+	address VARCHAR(200) NOT NULL,
+    email VARCHAR(50) -- NULL 허용 
 );
 
 -- 서적 카테고리
@@ -41,22 +41,21 @@ CREATE TABLE checkout (
     book_id INT NOT NULL,
     checkout_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_return boolean DEFAULT false,
-    FOREIGN KEY (user_id) REFERENCES user(id),
-    FOREIGN KEY (book_id) REFERENCES book(id)
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE
 );
-
-INSERT INTO checkout (user_id, book_id)
-VALUES ('abc', 1);
 
 SELECT * FROM checkout;
 SELECT * FROM book;
 SELECT * FROM user;
 
-DELETE FROM checkout;
-UPDATE book SET is_available = true;
+DROP TABLE book;
+DROP TABLE checkout;
 
 INSERT INTO book (name, writer, publisher, image, category_id, check_out_count, description)
 VALUES 
+	('어린 왕자', '앙투안 드 생텍쥐페리', '더스토리', 'images/0.jpg', 2, 576, '생텍쥐페리는 프랑스의 유명한 소설가로, 그의 작품 <어린 왕자>는 전 세계적으로 <성경>, <자본론> 다음으로 많이 읽히는 책이다. 이 책은 1943년 뉴욕에서 출판된 프랑스어판 초판본 표지디자인을 그대로 되살렸다. 어둡지도 너무 빛바래지도 않은 노란색 표지와 어린 왕자의 연둣빛 옷의 색감을 최대한 살려냈고, 본문에는 생텍쥐페리의 친필 사인이 들어 있다. 또한 작가가 직접 그린 일러스트들이 시적이고 아름다운 어린 왕자의 이야기를 더욱 풍성하게 만들어준다.'),
+    
 	('챗GPT : 마침내 찾아온 특이점', '반병현', '생능북스', 'images/1.jpg', 1, 563, '출시된 지 얼마 되지도 않아 세상을 뒤흔든 챗GPT는 지금까지 나온 모든 인공지능 기술보다 훨씬 더 전 세계에 충격을 주었다. 챗GPT가 무엇이고, 어떻게 활용하며, 우리 사회에 어떤 영향을 줄지 인공지능 개발자인 저자의 시선을 통해 분석하였다.'),
     ('진짜 쓰는 실무 엑셀', '오빠두(전진권)', '제이펍', 'images/2.jpg', 1, 301, '대기업 직장 생활 10년의 실무 노하우와 엑셀 유튜브 채널을 운영하면서 들은 수많은 직장인의 고민을 해결할 수 있는 다양한 엑셀 비법을 담았다. 한 권이면 빠른 일 처리로 워라밸을 실현하고, 일잘러로 거듭날 수 있다!'),
     ('코딩 자율학습 나도코딩의 파이썬 입문', '나도코딩', '길벗', 'images/3.jpg', 1, 297, '유튜브와 인프런 최고의 인기 강의를 한 권에 담았다. 일상 속 재미있는 예제로 파이썬 기본 개념을 배우고 1분 퀴즈, 실습 문제, 셀프체크로 이어지는 단계별 학습으로 파이썬을 완공할 수 있다. 코딩을 처음 배우는 사람도 단계적 용어 설명과 친절한 지시선으로 막힘없이 따라 할 수 있다. 기본 설명 외에 팁, 노트 등을 적재적소에 배치해 혼자 공부할 때 생길 수 있는 의문점을 쉽게 해결할 수 있게 도와준다.'),
@@ -98,4 +97,4 @@ VALUES
     ('고양이 해결사 깜냥 5', '홍민정', '창비', 'images/33.jpg', 7, 25, '어린이 독자들의 뜨거운 사랑을 받아 온 화제의 베스트셀러 『고양이 해결사 깜냥』이 다섯 번째 이야기로 돌아왔다. 이번에는 깜냥이 편의점 직원으로 변신해 다양한 손님들을 맞이하며 벌어지는 일들을 그렸다. 저마다 다른 이유로 찾아왔지만, 편의점에서 깜냥을 만난 손님들의 얼굴에는 밝은 웃음이 가득하다. 새롭게 등장한 캐릭터 ‘하품이’의 매력을 발견하는 것도 5권을 읽는 큰 즐거움이다. 4권 이후 1년을 기다려 온 독자들의 부푼 기대에 부응할 신나는 이야기가 펼쳐진다.
 ');
     
-UPDATE book SET is_available = 0 WHERE id = 1;
+

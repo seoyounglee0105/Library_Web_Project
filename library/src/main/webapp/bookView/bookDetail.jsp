@@ -128,7 +128,7 @@
 							<c:if test="${book.isAvailable == true && id != null}">
 								<form class="check_out_form" action="/library/bookDetail?bookId=${book.id}&action=checkout" method="post">
 									<input type="hidden" name="bookId" value="${book.id}">
-									<button class="check_out_btn" type="submit">대여하기</button>
+									<button class="check_out_btn" type="submit" onclick="return confirm('대여하시겠습니까?')">대여하기</button>
 								</form>
 							</c:if>
 							<c:if test="${book.isAvailable == true && id == null}">

@@ -32,8 +32,6 @@ public class UserService {
 			resultType = 4;
 			return resultType;
 		}
-		
-		
 		// 성공 시 1 반환
 		resultType = userDAO.insert(userDTO);
 		
@@ -80,8 +78,34 @@ public class UserService {
 	public UserDTO userInfo(String id) {
 		UserDTO resultDTO = null;
 		resultDTO = userDAO.select("id", id);
-		
 		return resultDTO;
+	}
+	
+	// 회원 정보 수정
+	public int updateInfo(UserDTO userDTO) {
+		int resultType = 0;
+		
+		// 전화번호가 중복인지 확인
+		if (checkPhoneNumber(userDTO.getPhoneNumber()) == true) {
+			// 중복이면
+			resultType = 2;
+			return resultType;
+		// 전화번호 형식 확인
+		} else if (userDTO.getPhoneNumber().indexOf("-") != 3 || userDTO.getPhoneNumber().lastIndexOf("-") != 8
+				|| userDTO.getPhoneNumber().length() != 13 || userDTO.getPhoneNumber().replaceAll("-", "").length() != 11) {
+			// 형식이 틀렸다면
+			resultType = 3;
+			return resultType;
+		}
+		resultType = userDAO.update(userDTO);
+		return resultType;
+	}
+	
+	// 회원 탈퇴
+	public int deleteUser(String id) {
+		int resultCount = 0;
+		resultCount = userDAO.delete(id);
+		return resultCount;
 	}
 	
 	

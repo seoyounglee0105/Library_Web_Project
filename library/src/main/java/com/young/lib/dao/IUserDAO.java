@@ -17,8 +17,8 @@ public interface IUserDAO {
 	
 	int insert(UserDTO userDTO); // 회원 가입
 	
-	int update(); // 회원 정보 수정
+	int update(UserDTO userDTO); // 회원 정보 수정
 	
-	int delete(); // 회원 탈퇴
+	int delete(String id); // 회원 탈퇴
 	
 }

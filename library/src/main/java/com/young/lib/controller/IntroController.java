@@ -38,27 +38,7 @@ public class IntroController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		UserService userService = new UserService();
-		
-		String action = request.getParameter("action");
-		if ("signUp".equals(action)) {
-			String id = request.getParameter("id");
-			String password = request.getParameter("password");
-			String name = request.getParameter("userName");
-			String phoneNumber = request.getParameter("phoneNumber");
-			String address = request.getParameter("address");
-			String email = request.getParameter("email");
-			UserDTO userDTO = new UserDTO(id, password, name, phoneNumber, address, email);
-			
-			int responseType = userService.signUp(userDTO);
-			
-			if (responseType == 1) {
-				
-			}
-			
-			
-		}
+
 	}
 
 }

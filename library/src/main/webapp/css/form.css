@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+	section {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		flex-basis: 450px;
+		background-color: white;
+		border-radius: 30px;
+		box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.1);
+		margin: 0 !important;
+	}
+
+	.title {
+		font-family: 'Noto Sans KR', sans-serif;
+		margin: 8px 8px 30px 8px;
+		font-size: 30px;
+	}
+
+	.form-group {
+		display: flex;
+		margin-bottom: 10px;
+	}
+	
+	.form-group label {
+		flex: 1;
+		font-size: 18px;
+	}
+	
+	.form-group input {
+		flex: 2;
+		font-size: 16px;
+		margin-left: 20px;
+		border-radius: 5px;
+		border-width: thin;
+	}
+	
+	.form-btn {
+		display: flex;
+		justify-content: center;
+		margin-top: 30px;
+	}
+	
+	.btn {
+		font-size: 15px;
+		line-height: 0;
+		border-radius: 8px;
+		border-width: thin;
+		height: 28px;
+		width: 50px;
+		text-align: center;
+		margin-left: 10px;
+		background-color: #B0DFD3;
+	}
+
+	.btn:hover {
+		background-color: #80BFB5;
+		cursor: pointer;
+	}
+	
+	.form-group input:focus {
+		background-color: #c8ebe2;
+	}
