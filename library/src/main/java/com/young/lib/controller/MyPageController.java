@@ -69,7 +69,7 @@ public class MyPageController extends HttpServlet {
 			
 			ArrayList<CheckoutDTO> list = checkoutService.viewCheckoutByUserId(userId); // 회원의 대여 기록
 			for (CheckoutDTO c : list) {		
-				// 해당 도서에 대한 리뷰 작성 기록이 없다면
+				// 해당 도서에 대한 리뷰 작성 
 				if (reviewService.selectReviewByUserAndBook(userId, c.getBookId()) == null) {
 					// 리스트에 추가되지 않은 id라면 추가
 					if (bookIdList.contains(c.getBookId()) == false) {
@@ -90,6 +90,12 @@ public class MyPageController extends HttpServlet {
 			
 		// 리뷰 관리
 		} else if ("manageReview".equals(menu)) {
+			ArrayList<ReviewDTO> userReviewList = reviewService.viewReviewByUser(userId);
+			
+			for (ReviewDTO r : userReviewList) {
+				r.setName(bookService.bookInfo(r.getBookId()).getName());
+			}
+			request.setAttribute("userReviewList", userReviewList);
 			
 			request.getRequestDispatcher("myPage/manageReview.jsp").forward(request, response);
 		
@@ -232,6 +238,21 @@ public class MyPageController extends HttpServlet {
 			}
 			request.setAttribute("responseReview", responseType);
 			// main.jsp로
+			
+		// 리뷰 삭제
+		} else if ("deleteReview".equals(action)) {
+			int reviewId = Integer.parseInt(request.getParameter("reviewId"));
+			int responseType = reviewService.deleteReview(reviewId);
+			request.setAttribute("responseDelete", responseType);
+			
+			ArrayList<ReviewDTO> userReviewList = reviewService.viewReviewByUser(userId);
+			
+			for (ReviewDTO r : userReviewList) {
+				r.setName(bookService.bookInfo(r.getBookId()).getName());
+			}
+			request.setAttribute("userReviewList", userReviewList);
+			
+			request.getRequestDispatcher("myPage/manageReview.jsp").forward(request, response);
 			
 		}
 		

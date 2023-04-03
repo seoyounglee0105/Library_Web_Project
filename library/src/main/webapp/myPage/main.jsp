@@ -114,6 +114,7 @@
 					<c:if test="${checkoutCount != 0}">
 						<p style="color: gray; font-size: 17px;">${checkoutCount}권의 도서를 대여 중입니다.</p>						
 					</c:if>
+					
 				<hr style="margin: 30px 0;">
 					<!-- 리뷰 작성 가능한 도서가 없다면 -->
 					<c:if test="${reviewCount == 0}">

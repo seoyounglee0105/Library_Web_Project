@@ -186,7 +186,6 @@ public class BookListController extends HttpServlet {
 			request.setAttribute("list", resultList);
 			request.getRequestDispatcher("bookView/bookList.jsp").forward(request, response);			
 		}
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

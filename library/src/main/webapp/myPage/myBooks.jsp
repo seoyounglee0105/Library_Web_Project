@@ -43,7 +43,7 @@
 	
 	.checkout th {
 		color: #204247;
-		background-color: #E6FBF0;
+		background-color: buttonhighlight;
 	}
 	
 	.checkout td a:hover {

@@ -49,8 +49,38 @@ public class ReviewDAO implements IReviewDAO {
 	// 회원별 리뷰 조회
 	@Override
 	public ArrayList<ReviewDTO> select(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<ReviewDTO> resultList = new ArrayList<>();
+		String sql = " SELECT * FROM review WHERE user_id = ? ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				ReviewDTO dto = new ReviewDTO();
+				dto.setId(rs.getInt("id"));
+				dto.setUserId(rs.getString("user_id"));
+				dto.setBookId(rs.getInt("book_id"));
+				dto.setStar(rs.getInt("star"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setWriteDate(rs.getString("write_date"));
+				resultList.add(dto);
+				System.out.println();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resultList;
 	}
 
 	// 도서별 리뷰 조회 (리뷰 정보만 있으면 됨)
@@ -159,6 +189,29 @@ public class ReviewDAO implements IReviewDAO {
 			}
 		}
 		return resultDto;
+	}
+
+	@Override
+	public int delete(int reviewId) {
+		int resultCount = 0;
+		String sql = " DELETE FROM review WHERE id = ? ";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewId);
+			resultCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resultCount;
 	}
 
 }

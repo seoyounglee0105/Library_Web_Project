@@ -21,5 +21,7 @@ public interface IReviewDAO {
 	// 특정 리뷰 조회
 	ReviewDTO selectById(int reviewId);
 
+	// 리뷰 삭제
+	int delete(int reviewId);
 	
 }

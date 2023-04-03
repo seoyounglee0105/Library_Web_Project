@@ -34,11 +34,25 @@ public class ReviewService {
 		return resultList;
 	}
 	
+	// 회원별 리뷰 조회
+	public ArrayList<ReviewDTO> viewReviewByUser(String userId) {
+		ArrayList<ReviewDTO> resultList = new ArrayList<>();
+		resultList = reviewDAO.select(userId);
+		return resultList;
+	}
+	
 	// 특정 리뷰 조회
 	public ReviewDTO reviewInfo(int reviewId) {
 		ReviewDTO resultDto = null;
 		resultDto = reviewDAO.selectById(reviewId);
 		return resultDto;
+	}
+	
+	// 리뷰 삭제
+	public int deleteReview(int reviewId) {
+		int resultCount = 0;
+		resultCount = reviewDAO.delete(reviewId);
+		return resultCount;
 	}
 	
 }

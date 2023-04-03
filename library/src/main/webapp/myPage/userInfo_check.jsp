@@ -84,7 +84,7 @@
 			<section style="flex-basis: 800px;">
 				<h3>회원 정보 수정</h3>
 				<div>
-					<p style="margin-bottom: 10px;">본인 확인을 위해 비밀번호를 입력해주세요.</p>
+					<p style="margin-bottom: 10px; color: gray; font-size: 17px;">본인 확인을 위해 비밀번호를 입력해주세요.</p>
 					
 					<form action="/library/myPage?menu=userInfo&action=pwCheck" method="post" class="pwCheck">
 						<input type="password" name="password" required="required">
