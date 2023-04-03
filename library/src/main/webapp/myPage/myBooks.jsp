@@ -46,6 +46,10 @@
 		background-color: #E6FBF0;
 	}
 	
+	.checkout td a:hover {
+		color: #80BFB5 !important;
+	}
+
 	.returnBook {
 		display: flex;
 		justify-content: center;
@@ -60,9 +64,6 @@
 		color: #80BFB5 !important;		
 	}
 	
-	.checkout td a:hover {
-		color: #80BFB5 !important;
-	}
 	
 </style>
 </head>

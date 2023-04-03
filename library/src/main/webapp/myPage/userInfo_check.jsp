@@ -28,6 +28,12 @@
 		font-size: 20px;
 	}
 	
+	section div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	
 	.myPage_userInfo {
 		color: #80BFB5 !important;
 	}
@@ -75,16 +81,16 @@
 			<!-- 카테고리 -->
 			<jsp:include page="../layout/category_myPage.jsp"/>	
 				
-			<section>
+			<section style="flex-basis: 800px;">
 				<h3>회원 정보 수정</h3>
-				
-				<p style="margin-bottom: 10px;">본인 확인을 위해 비밀번호를 입력해주세요.</p>
-				
-				<form action="/library/myPage?menu=userInfo&action=pwCheck" method="post" class="pwCheck">
-					<input type="password" name="password" required="required">
-					<button type="submit" class="btn">확인</button>
-				</form>
-				
+				<div>
+					<p style="margin-bottom: 10px;">본인 확인을 위해 비밀번호를 입력해주세요.</p>
+					
+					<form action="/library/myPage?menu=userInfo&action=pwCheck" method="post" class="pwCheck">
+						<input type="password" name="password" required="required">
+						<button type="submit" class="btn">확인</button>
+					</form>
+				</div>
 			</section>
 		</div>
 		<jsp:include page="../layout/footer.jsp" />

@@ -53,11 +53,41 @@ public class ReviewDAO implements IReviewDAO {
 		return null;
 	}
 
-	// 도서별 리뷰 조회
+	// 도서별 리뷰 조회 (리뷰 정보만 있으면 됨)
 	@Override
 	public ArrayList<ReviewDTO> select(int bookId) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<ReviewDTO> resultList = new ArrayList<>();
+		String sql = " SELECT * FROM review WHERE book_id = ? ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bookId);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				ReviewDTO dto = new ReviewDTO();
+				dto.setId(rs.getInt("id"));
+				dto.setUserId(rs.getString("user_id"));
+				dto.setBookId(rs.getInt("book_id"));
+				dto.setStar(rs.getInt("star"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setWriteDate(rs.getString("write_date"));
+				resultList.add(dto);
+				System.out.println();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resultList;
 	}
 
 	// 회원+도서별 리뷰 조회 (단일 객체)
@@ -67,7 +97,6 @@ public class ReviewDAO implements IReviewDAO {
 		String sql = " SELECT * FROM review AS r INNER JOIN book AS b ON r.book_id = b.id WHERE r.user_id = ? AND r.book_id = ?  ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
@@ -83,8 +112,42 @@ public class ReviewDAO implements IReviewDAO {
 				resultDto.setTitle(rs.getString("r.title"));
 				resultDto.setContent(rs.getString("r.content"));
 				resultDto.setName(rs.getString("b.name"));
+				resultDto.setWriteDate(rs.getString("write_date"));
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resultDto;
+	}
+
+	@Override
+	public ReviewDTO selectById(int reviewId) {
+		ReviewDTO resultDto = null;
+		String sql = " SELECT * FROM review WHERE id = ? ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewId);
+			rs = pstmt.executeQuery();
 			
+			while (rs.next()) {
+				resultDto = new ReviewDTO();
+				resultDto.setId(rs.getInt("id"));
+				resultDto.setUserId(rs.getString("user_id"));
+				resultDto.setBookId(rs.getInt("book_id"));
+				resultDto.setStar(rs.getInt("star"));
+				resultDto.setTitle(rs.getString("title"));
+				resultDto.setContent(rs.getString("content"));
+				resultDto.setWriteDate(rs.getString("write_date"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

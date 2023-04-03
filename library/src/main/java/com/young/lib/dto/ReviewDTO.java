@@ -8,6 +8,7 @@ public class ReviewDTO extends BookDTO {
 	private int star;
 	private String title;
 	private String content;
+	private String writeDate;
 	
 	public ReviewDTO(String userId, int bookId, int star, String title, String content) {
 		super();
@@ -68,6 +69,14 @@ public class ReviewDTO extends BookDTO {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getWriteDate() {
+		return writeDate;
+	}
+
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
 	}
 
 	@Override

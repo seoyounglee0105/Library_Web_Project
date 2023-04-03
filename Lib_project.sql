@@ -45,12 +45,20 @@ CREATE TABLE checkout (
     FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE
 );
 
-SELECT * FROM checkout;
-SELECT * FROM book;
-SELECT * FROM user;
+-- 리뷰
+CREATE TABLE review (
+	id int PRIMARY KEY AUTO_INCREMENT,
+    user_id VARCHAR(50) NOT NULL,
+    book_id int NOT NULL,
+    star int NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    content TEXT NOT NULL,
+    write_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE
+);
 
-DROP TABLE book;
-DROP TABLE checkout;
+SELECT * FROM review;
 
 INSERT INTO book (name, writer, publisher, image, category_id, check_out_count, description)
 VALUES 

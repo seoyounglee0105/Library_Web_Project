@@ -68,6 +68,20 @@
 		width: 110px;
 	}
 	
+	.review {
+		color: #1A606B;
+		font-size: 17px;
+	}
+	
+	.review_span {
+		color: #1A606B;
+		font-size: 17px;
+	}
+	
+	.review:hover {
+		color: #80BFB5;
+	}
+	
 </style>
 </head>
 <body>
@@ -104,9 +118,51 @@
 							<span class="book_publisher">출판사 : ${book.publisher}</span>
 						</p>
 						<br>
-						<!-- 나중에 리뷰 생기면 바꾸기 -->
-						<p><span style="color: #F5CF14;">★★★★★</span>&nbsp;<span style="color: gray;">(4.85)</span></p>
-						
+						<p>
+							<c:choose>
+								<c:when test="${reviewList.size() == 0}">
+									<span class="review_span">리뷰 ${reviewList.size()}개</span>
+								</c:when>
+								<c:otherwise>
+									<a href="/library/bookDetail?bookId=${book.id}&action=selectReview" class="review">리뷰 ${reviewList.size()}개</a>
+								</c:otherwise>
+							</c:choose>
+							<span style="color: #F5CF14; margin: 0 5px;'">
+								<c:choose>
+									<c:when test="${imgStar == 0}">
+										☆☆☆☆☆
+									</c:when>
+									<c:when test="${imgStar == 1}">
+										★☆☆☆☆
+									</c:when>
+									<c:when test="${imgStar == 2}">
+										★★☆☆☆
+									</c:when>
+									<c:when test="${imgStar == 3}">
+										★★★☆☆
+									</c:when>
+									<c:when test="${imgStar == 4}">
+										★★★★☆
+									</c:when>
+									<c:when test="${imgStar == 5}">
+										★★★★★
+									</c:when>
+								</c:choose>
+							</span>
+							<!-- 평균 점수 -->
+							<c:choose>
+								<c:when test="${avgStar == 0.00}">
+									<span style="color: gray; font-size:15px;">
+										(평가 없음)
+									</span>
+								</c:when>
+								<c:otherwise>
+									<span style="color: gray;">
+										(${avgStar})
+									</span>
+								</c:otherwise>
+							</c:choose>
+						</p>
 						<br>
 						<div class="check_out">
 							<div>
@@ -123,7 +179,6 @@
 									</c:choose>
 								</p>
 							</div>
-							<!-- 대여 기능 만들면 연결 -->
 							<br>
 							<c:if test="${book.isAvailable == true && id != null}">
 								<form class="check_out_form" action="/library/bookDetail?bookId=${book.id}&action=checkout" method="post">

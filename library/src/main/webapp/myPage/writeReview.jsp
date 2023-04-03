@@ -46,6 +46,8 @@
 	
 	.content {
 		font-size: 17px;
+		padding: 5px;
+		resize: none;
 	}
 	
 	.star {
@@ -111,7 +113,7 @@
 						<input type="text" name="title" placeholder="제목을 입력해주세요." maxlength="100" required="required" class="title">
 					</div>
 					<div class="form-row">
-						<textarea name="content" cols="73" rows="10" placeholder="내용을 입력해주세요." required="required" class="content"></textarea>
+						<textarea name="content" cols="72" rows="10" placeholder="내용을 입력해주세요." required="required" class="content" ></textarea>
 					</div>
 					<div class="form-btn">
 						<button class="btn" type="submit" onclick="return confirm('작성을 완료하셨습니까?')">완료</button>

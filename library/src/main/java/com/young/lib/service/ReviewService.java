@@ -1,5 +1,7 @@
 package com.young.lib.service;
 
+import java.util.ArrayList;
+
 import com.young.lib.dao.ReviewDAO;
 import com.young.lib.dto.ReviewDTO;
 
@@ -22,6 +24,20 @@ public class ReviewService {
 	public ReviewDTO selectReviewByUserAndBook(String userId, int bookId) {
 		ReviewDTO resultDto = null;
 		resultDto = reviewDAO.select(userId, bookId);
+		return resultDto;
+	}
+	
+	// 도서별 리뷰 조회
+	public ArrayList<ReviewDTO> viewReviewByBook(int bookId) {
+		ArrayList<ReviewDTO> resultList = new ArrayList<>();
+		resultList = reviewDAO.select(bookId);
+		return resultList;
+	}
+	
+	// 특정 리뷰 조회
+	public ReviewDTO reviewInfo(int reviewId) {
+		ReviewDTO resultDto = null;
+		resultDto = reviewDAO.selectById(reviewId);
 		return resultDto;
 	}
 	

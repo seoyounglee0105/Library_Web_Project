@@ -92,6 +92,12 @@
 		color: #8F000C !important;
 	}
 	
+	.form_div {
+	 	width: 100%;
+	 	display: flex;
+	 	justify-content: center;
+	}
+	
 </style>
 </head>
 <body>
@@ -103,38 +109,40 @@
 			<!-- 카테고리 -->
 			<jsp:include page="../layout/category_myPage.jsp"/>	
 				
-			<section>
+			<section style="flex-basis: 800px;">
 				<h3>회원 정보 수정</h3>
-				<form action="/library/myPage?menu=userInfo&action=updateInfo" method="post" class="info_update">
-					<div class="form-group">
-						<label for="id">아이디 *</label>
-						<!-- 수정 불가 -->
-						<input name="id" id="id" type="text" required="required" value="${user.id}" readonly="readonly">					
-					</div>
-					<div class="form-group">
-						<label for="pw">비밀번호 *</label>
-						<input name="password" id="pw" type="password" required="required" value="${user.password}">					
-					</div>
-					<div class="form-group">
-						<label for="userName">이름 *</label>
-						<input name="userName" id="userName" type="text" required="required" value="${user.name}">					
-					</div>
-					<div class="form-group">
-						<label for="phoneNumber">전화번호 *</label>
-						<input name="phoneNumber" id="phoneNumber" type="tel" required="required" value="${user.phoneNumber}">					
-					</div>
-					<div class="form-group">
-						<label for="address">주소 *</label>
-						<input name="address"  id="address" type="text" required="required" value="${user.address}">					
-					</div>
-					<div class="form-group">
-						<label for="email">이메일</label>
-						<input name="email"  id="email" type="email" value="${user.email}">					
-					</div>
-					<div class="form-btn">
-						<input class="btn"  name="signUp"  type="submit" value="완료" onclick="return confirm('입력한 정보대로 수정하시겠습니까?')">
-					</div>
-				</form>		
+				<div class="form_div">
+					<form action="/library/myPage?menu=userInfo&action=updateInfo" method="post" class="info_update">
+						<div class="form-group">
+							<label for="id">아이디 *</label>
+							<!-- 수정 불가 -->
+							<input name="id" id="id" type="text" required="required" value="${user.id}" readonly="readonly">					
+						</div>
+						<div class="form-group">
+							<label for="pw">비밀번호 *</label>
+							<input name="password" id="pw" type="password" required="required" value="${user.password}">					
+						</div>
+						<div class="form-group">
+							<label for="userName">이름 *</label>
+							<input name="userName" id="userName" type="text" required="required" value="${user.name}">					
+						</div>
+						<div class="form-group">
+							<label for="phoneNumber">전화번호 *</label>
+							<input name="phoneNumber" id="phoneNumber" type="tel" required="required" value="${user.phoneNumber}">					
+						</div>
+						<div class="form-group">
+							<label for="address">주소 *</label>
+							<input name="address"  id="address" type="text" required="required" value="${user.address}">					
+						</div>
+						<div class="form-group">
+							<label for="email">이메일</label>
+							<input name="email"  id="email" type="email" value="${user.email}">					
+						</div>
+						<div class="form-btn">
+							<input class="btn"  name="signUp"  type="submit" value="완료" onclick="return confirm('입력한 정보대로 수정하시겠습니까?')">
+						</div>
+					</form>		
+				</div>
 				<div class="delete_user_div">
 					<a href="/library/myPage?action=deleteUser" onclick="return confirm('정말로 탈퇴하시겠습니까?')" class="delete_user">회원 탈퇴</a>
 				</div>

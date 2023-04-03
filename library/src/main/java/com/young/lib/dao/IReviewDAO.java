@@ -17,6 +17,9 @@ public interface IReviewDAO {
 	
 	// 회원+도서별 리뷰 조회 (단일 객체)
 	ReviewDTO select(String userId, int bookId);
+	
+	// 특정 리뷰 조회
+	ReviewDTO selectById(int reviewId);
 
 	
 }
