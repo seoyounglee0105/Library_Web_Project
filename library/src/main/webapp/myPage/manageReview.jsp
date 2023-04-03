@@ -121,7 +121,7 @@
 										<!-- 도서명 -->
 										<td>${review.name}</td>
 										<!-- 제목 -->
-										<td><a href="bookDetail?action=reviewDetail&reviewId=${review.id}">${review.title}</a></td>
+										<td><a href="bookDetail?action=reviewDetail&reviewId=${review.id}" style="color: #21616B;">${review.title}</a></td>
 										<!-- 삭제하기 -->
 										<td>
 											<form class="deleteReview" action="/library/myPage?action=deleteReview" method="post">

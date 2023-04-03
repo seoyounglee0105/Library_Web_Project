@@ -153,7 +153,7 @@
 								<!-- 작성자 -->
 								<td>${review.userId}</td>
 								<!-- 제목 -->
-								<td><a href="bookDetail?action=reviewDetail&reviewId=${review.id}">${review.title}</a></td>
+								<td><a href="bookDetail?action=reviewDetail&reviewId=${review.id}" style="color: #21616B;">${review.title}</a></td>
 								<!-- 작성일자 -->
 								<td>${review.writeDate}</td>
 							</tr>						
