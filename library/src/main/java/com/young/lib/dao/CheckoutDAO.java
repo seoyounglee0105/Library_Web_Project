@@ -82,8 +82,41 @@ public class CheckoutDAO implements ICheckoutDAO {
 
 	@Override
 	public ArrayList<CheckoutDTO> select(String userId, int bookId) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<CheckoutDTO> resultList = new ArrayList<>();
+		String sql = " SELECT * FROM checkout AS c INNER JOIN book AS b ON c.book_id = b.id WHERE c.user_id = ? AND c.book_id = ? ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, bookId);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				CheckoutDTO dto = new CheckoutDTO();
+				dto.setId(rs.getInt("c.id"));
+				dto.setUserId(rs.getString("c.user_id"));
+				dto.setBookId(rs.getInt("c.book_id"));
+				dto.setCheckoutDate(rs.getString("c.checkout_date"));
+				dto.setIsReturn(rs.getBoolean("c.is_return"));
+				dto.setName(rs.getString("b.name"));
+				dto.setWriter(rs.getString("b.writer"));
+				dto.setPublisher(rs.getString("b.publisher"));
+				dto.setImage(rs.getString("b.image"));
+				dto.setCategoryId(rs.getInt("b.category_id"));
+				resultList.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resultList;
 	}
 
 	@Override

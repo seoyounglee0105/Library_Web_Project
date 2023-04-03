@@ -86,7 +86,8 @@ public class UserService {
 		int resultType = 0;
 		
 		// 전화번호가 중복인지 확인
-		if (checkPhoneNumber(userDTO.getPhoneNumber()) == true) {
+		if (checkPhoneNumber(userDTO.getPhoneNumber()) == true
+			&& userInfo(userDTO.getId()).getPhoneNumber().equals(userDTO.getPhoneNumber()) == false) {
 			// 중복이면
 			resultType = 2;
 			return resultType;

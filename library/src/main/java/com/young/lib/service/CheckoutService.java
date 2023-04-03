@@ -43,6 +43,13 @@ public class CheckoutService {
 		return resultDto;
 	}
 	
+	// 리뷰 작성 권한 관련 : 회원 + 도서별 대여 기록 조회
+	public ArrayList<CheckoutDTO> selectCheckoutByUserAndBook(String userId, int bookId) {
+		ArrayList<CheckoutDTO> resultList = new ArrayList<>();
+		resultList = checkoutDAO.select(userId, bookId);
+		return resultList;
+	}
+	
 	// 반납하기
 	public int returnBook(CheckoutDTO checkoutDTO) {
 		int resultCount = 0;

@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.young.lib.dao.UserDAO;
+import com.young.lib.dto.BookDTO;
 import com.young.lib.dto.CheckoutDTO;
+import com.young.lib.dto.ReviewDTO;
 import com.young.lib.dto.UserDTO;
 import com.young.lib.service.BookService;
 import com.young.lib.service.CheckoutService;
+import com.young.lib.service.ReviewService;
 import com.young.lib.service.UserService;
 
 @WebServlet("/myPage")
@@ -29,6 +32,7 @@ public class MyPageController extends HttpServlet {
 		CheckoutService checkoutService = new CheckoutService();
 		UserService userService = new UserService();
 		BookService bookService = new BookService();
+		ReviewService reviewService = new ReviewService();
 		request.setCharacterEncoding("UTF-8");
 		String userId = (String) request.getSession().getAttribute("id");
 		String menu = request.getParameter("menu");
@@ -55,6 +59,34 @@ public class MyPageController extends HttpServlet {
 			request.setAttribute("allList", checkoutList); // 대여 내역
 			request.setAttribute("notReturnList", notReturnList); // 대여 중인 도서
 			request.getRequestDispatcher("myPage/myBooks.jsp").forward(request, response);	
+		
+		// 리뷰 작성
+		} else if ("writeReview".equals(menu)) {
+			// 리뷰 권한
+			// 해당 회원의 대여 기록에 있는 책들 중, 리뷰 작성 기록이 없는 책들의 id 가져오기
+			
+			ArrayList<Integer> bookIdList = new ArrayList<>(); // id
+			
+			ArrayList<CheckoutDTO> list = checkoutService.viewCheckoutByUserId(userId); // 회원의 대여 기록
+			for (CheckoutDTO c : list) {		
+				// 해당 도서에 대한 리뷰 작성 기록이 없다면
+				if (reviewService.selectReviewByUserAndBook(userId, c.getBookId()) == null) {
+					// 리스트에 추가되지 않은 id라면 추가
+					if (bookIdList.contains(c.getBookId()) == false) {
+						bookIdList.add(c.getBookId());
+					}
+				}
+			}
+		
+			// 리뷰 작성 가능한 도서 정보
+			ArrayList<BookDTO> availableBookList = new ArrayList<>(); // 리뷰 작성 가능한 bookDTO들
+			
+			for (int bookId : bookIdList) {
+				availableBookList.add(bookService.bookInfo(bookId));
+			}
+			request.setAttribute("bookList", availableBookList);
+			
+			request.getRequestDispatcher("myPage/writeReview.jsp").forward(request, response);	
 			
 		// 리뷰 관리
 		} else if ("manageReview".equals(menu)) {
@@ -69,7 +101,6 @@ public class MyPageController extends HttpServlet {
 				int bookId = checkoutDTO.getBookId();
 				bookService.updateIsAvailable(true, bookId);
 			}
-			
 			
 			// 탈퇴
 			userService.deleteUser(userId);
@@ -94,6 +125,30 @@ public class MyPageController extends HttpServlet {
 			int notReturnCount = notReturnList.size();
 			request.setAttribute("checkoutCount", notReturnCount);
 			
+			// 리뷰 작성 가능한 도서 정보
+			ArrayList<Integer> bookIdList = new ArrayList<>(); // id
+			
+			ArrayList<CheckoutDTO> list = checkoutService.viewCheckoutByUserId(userId); // 회원의 대여 기록
+			for (CheckoutDTO c : list) {		
+				// 해당 도서에 대한 리뷰 작성 기록이 없다면
+				if (reviewService.selectReviewByUserAndBook(userId, c.getBookId()) == null) {
+					// 리스트에 추가되지 않은 id라면 추가
+					if (bookIdList.contains(c.getBookId()) == false) {
+						bookIdList.add(c.getBookId());
+					}
+				}
+			}
+			// 리뷰 작성 가능한 도서 정보
+			ArrayList<BookDTO> availableBookList = new ArrayList<>(); // 리뷰 작성 가능한 bookDTO들
+			
+			for (int bookId : bookIdList) {
+				availableBookList.add(bookService.bookInfo(bookId));
+			}
+			
+			int bookCount = availableBookList.size();
+			request.setAttribute("reviewCount", bookCount);
+			request.setAttribute("bookList", availableBookList);
+			
 			request.getRequestDispatcher("myPage/main.jsp").forward(request, response);	
 			
 		}
@@ -102,6 +157,8 @@ public class MyPageController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CheckoutService checkoutService = new CheckoutService();
 		UserService userService = new UserService();
+		BookService bookService = new BookService();
+		ReviewService reviewService = new ReviewService();
 		request.setCharacterEncoding("UTF-8");
 		String userId = (String) request.getSession().getAttribute("id");
 		String action = request.getParameter("action");
@@ -126,6 +183,7 @@ public class MyPageController extends HttpServlet {
 			request.setAttribute("result", result);
 			request.getRequestDispatcher("myPage/myBooks.jsp").forward(request, response);	
 			
+		// 회원 정보 수정 전 비밀번호 확인
 		} else if ("pwCheck".equals(action)) {
 			String inputPw = request.getParameter("password");
 			String correctPw = userService.userInfo(userId).getPassword();
@@ -142,8 +200,8 @@ public class MyPageController extends HttpServlet {
 			request.setAttribute("result", result);
 			request.getRequestDispatcher("myPage/userInfo_check.jsp").forward(request, response);
 			
+		// 회원 정보 수정
 		} else if ("updateInfo".equals(action)) {
-			// 회원 정보 수정
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
 			String name = request.getParameter("userName");
@@ -152,28 +210,72 @@ public class MyPageController extends HttpServlet {
 			String email = request.getParameter("email");
 			
 			UserDTO updateDTO = new UserDTO(id, password, name, phoneNumber, address, email);
-			int result = userService.updateInfo(updateDTO);
-			System.out.println(result);
+			int responseUpdateInfo = userService.updateInfo(updateDTO);
+			request.setAttribute("responseUpdateInfo", responseUpdateInfo);
 			
-			// 마이페이지로 이동
-			UserDTO userDTO = userService.userInfo(userId);
-			request.setAttribute("user", userDTO);
-			request.setAttribute("result", result);
+			// main.jsp로
 			
-			// 대여 중인 도서 정보
-			ArrayList<CheckoutDTO> checkoutList = checkoutService.viewCheckoutByUserId(userId);
-			ArrayList<CheckoutDTO> notReturnList = new ArrayList<>();
-			for (CheckoutDTO dto : checkoutList) {
-				if (dto.getIsReturn() == false) {
-					notReturnList.add(dto);
-				}
+		// 리뷰 작성
+		} else if ("writeReview".equals(action)) {
+			int bookId = Integer.parseInt(request.getParameter("bookId"));
+			int star = Integer.parseInt(request.getParameter("star"));
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			
+			int responseType = 0;
+			// 도서명을 선택하지 않았다면 (-1)
+			if (bookId == -1) {
+				responseType = 2;
+			} else {
+				ReviewDTO dto = new ReviewDTO(userId, bookId, star, title, content);
+				responseType = reviewService.writeReview(dto);
 			}
-			int notReturnCount = notReturnList.size();
-			request.setAttribute("checkoutCount", notReturnCount);
-			
-			request.getRequestDispatcher("myPage/main.jsp").forward(request, response);
+			request.setAttribute("responseReview", responseType);
+			// main.jsp로
 			
 		}
-
+		
+		// 회원 정보
+		UserDTO userDTO = userService.userInfo(userId);
+		request.setAttribute("user", userDTO);
+		
+		// 대여 중인 도서 정보
+		ArrayList<CheckoutDTO> checkoutList = checkoutService.viewCheckoutByUserId(userId);
+		ArrayList<CheckoutDTO> notReturnList = new ArrayList<>();
+		for (CheckoutDTO dto : checkoutList) {
+			if (dto.getIsReturn() == false) {
+				notReturnList.add(dto);
+			}
+		}
+		int notReturnCount = notReturnList.size();
+		request.setAttribute("checkoutCount", notReturnCount);
+		
+		// 리뷰 작성 가능한 도서 정보
+		ArrayList<Integer> bookIdList = new ArrayList<>(); // id
+		
+		ArrayList<CheckoutDTO> list = checkoutService.viewCheckoutByUserId(userId); // 회원의 대여 기록
+		for (CheckoutDTO c : list) {		
+			// 해당 도서에 대한 리뷰 작성 기록이 없다면
+			if (reviewService.selectReviewByUserAndBook(userId, c.getBookId()) == null) {
+				// 리스트에 추가되지 않은 id라면 추가
+				if (bookIdList.contains(c.getBookId()) == false) {
+					bookIdList.add(c.getBookId());
+					System.out.println(c.getBookId());
+				}
+			}
+		}
+	
+		// 리뷰 작성 가능한 도서 정보
+		ArrayList<BookDTO> availableBookList = new ArrayList<>(); // 리뷰 작성 가능한 bookDTO들
+		
+		for (int bookId : bookIdList) {
+			availableBookList.add(bookService.bookInfo(bookId));
+			System.out.println(bookService.bookInfo(bookId));
+		}
+		
+		int bookCount = availableBookList.size();
+		request.setAttribute("reviewCount", bookCount);
+		request.setAttribute("bookList", availableBookList);
+		request.getRequestDispatcher("myPage/main.jsp").forward(request, response);			
 	}
 }

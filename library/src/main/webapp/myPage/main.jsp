@@ -8,18 +8,29 @@
 %>
 
 <c:choose>
-	<c:when test="${result == 1}">
+	<c:when test="${responseUpdateInfo == 1}">
 		<% out.println("<script>alert('회원 정보가 수정되었습니다.');</script>"); %>
 	</c:when>
 	
-	<c:when test="${result == 2}">
-		<% out.println("<script>alert('중복된 전화번호입니다.');</script>"); %>
+	<c:when test="${responseUpdateInfo == 2}">
+		<% out.println("<script>alert('중복된 전화번호입니다.'); history.back();</script>"); %>
 	</c:when>
 	
-	<c:when test="${result == 3}">
-		<% out.println("<script>alert('전화번호의 형식이 틀렸습니다.');</script>"); %>
+	<c:when test="${responseUpdateInfo == 3}">
+		<% out.println("<script>alert('전화번호의 형식이 틀렸습니다.'); history.back();</script>"); %>
 	</c:when>
 </c:choose>
+
+<c:choose>
+	<c:when test="${responseReview == 1}">
+		<% out.println("<script>alert('리뷰 작성이 완료되었습니다.');</script>"); %>
+	</c:when>
+	
+	<c:when test="${responseReview == 2}">
+		<% out.println("<script>alert('도서명을 선택해주세요.'); history.back();</script>"); %>
+	</c:when>
+</c:choose>
+
 
 <!DOCTYPE html>
 <html>
@@ -104,8 +115,16 @@
 						<p style="color: gray; font-size: 17px;">${checkoutCount}권의 도서를 대여 중입니다.</p>						
 					</c:if>
 				<hr style="margin: 30px 0;">
-				<h3><a href="/library/myPage?menu=manageReview">리뷰 작성</a></h3>
-					<p style="color: gray; font-size: 17px;">작성 가능한 n권의 도서가 있습니다.</p>											
+					<!-- 리뷰 작성 가능한 도서가 없다면 -->
+					<c:if test="${reviewCount == 0}">
+						<h3>리뷰 작성</h3>
+						<p style="color: gray; font-size: 17px;">작성 가능한 도서가 없습니다.</p>						
+					</c:if>
+					<!-- 리뷰 작성 가능한 도서가 있다면 -->
+					<c:if test="${reviewCount != 0}">
+						<h3><a href="/library/myPage?menu=writeReview">리뷰 작성</a></h3>
+						<p style="color: gray; font-size: 17px;">작성 가능한 ${reviewCount}권의 도서가 있습니다.</p>						
+					</c:if>								
 			</section>
 		</div>
 		<jsp:include page="../layout/footer.jsp" />
