@@ -119,7 +119,7 @@
 											</c:choose>
 										</span> </td>
 										<!-- 도서명 -->
-										<td>${review.name}</td>
+										<td><a href="/library/bookDetail?bookId=${review.bookId}" style="color: #21616B;">${review.name}</a></td>
 										<!-- 제목 -->
 										<td><a href="bookDetail?action=reviewDetail&reviewId=${review.id}" style="color: #21616B;">${review.title}</a></td>
 										<!-- 삭제하기 -->

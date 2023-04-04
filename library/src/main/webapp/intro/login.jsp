@@ -32,9 +32,6 @@
 <link rel = "stylesheet" href = "../css/main.css">
 <link rel = "stylesheet" href = "../css/form.css">
 <style type="text/css">
-	
-
-	
 </style>
 </head>
 <body>
@@ -49,11 +46,11 @@
 				<form class="form-intro" action="/library/intro/login.jsp?action=login" method="post">
 					<div class="form-group">
 						<label for="id">아이디</label>
-						<input name="id" id="id" type="text" required="required" >					
+						<input name="id" id="id" type="text" required="required" style="padding:0 3px">					
 					</div>
 					<div class="form-group">
 						<label for="pw">비밀번호</label>
-						<input name="password" id="pw" type="password" required="required">					
+						<input name="password" id="pw" type="password" required="required" style="padding:0 3px">					
 					</div>
 					<div class="form-btn">
 						<input class="btn"  name="login"  type="submit" value="완료">

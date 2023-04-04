@@ -20,6 +20,9 @@ public interface IBookDAO {
 	// 검색 조회
 	ArrayList<BookDTO> select(String search);
 	
+	// 대여량 순 & LIMIT n개
+	ArrayList<BookDTO> select(int count);
+	
 	// 대여량 갱신
 	int update(int checkOutCount, int bookId);
 	

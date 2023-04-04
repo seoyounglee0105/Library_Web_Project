@@ -264,5 +264,44 @@ public class BookDAO implements IBookDAO {
 		return resultCount;
 	}
 
+	// 대여량 순 & LIMIT n개
+	@Override
+	public ArrayList<BookDTO> select(int count) {
+		ArrayList<BookDTO> resultList = new ArrayList<>();
+		String sql = " SELECT * FROM book AS b INNER JOIN category AS c ON b.category_id = c.id ORDER BY check_out_count DESC LIMIT ? "; 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				BookDTO dto = new BookDTO();
+				dto.setId(rs.getInt("b.id"));
+				dto.setName(rs.getString("b.name"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setPublisher(rs.getString("publisher"));
+				dto.setImage(rs.getString("image"));
+				dto.setDescription(rs.getString("description"));
+				dto.setCheckOutCount(rs.getInt("check_out_count"));
+				dto.setAvailable(rs.getBoolean("is_available"));
+				dto.setCategoryId(rs.getInt("category_id"));
+				dto.setCategoryName(rs.getString("c.name"));
+				resultList.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resultList;
+	}
+
 
 }

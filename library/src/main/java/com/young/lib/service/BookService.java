@@ -72,4 +72,11 @@ public class BookService {
 		resultCount = bookDAO.update(isAvailable, bookId);		
 		return resultCount;
 	}
+	
+	// 대여량 순 top n 도서 리스트 가져오기
+	public ArrayList<BookDTO> viewTopBook(int count) {
+		ArrayList<BookDTO> resultList = new ArrayList<>();
+		resultList = bookDAO.select(count);
+		return resultList;
+	}
 }

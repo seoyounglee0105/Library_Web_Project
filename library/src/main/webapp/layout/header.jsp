@@ -10,7 +10,7 @@
 			</header>
 
 			<div class="home_search">
-				<a href="/library/index.jsp"><img alt="홈 버튼" src="/library/images/homebtn.png"></a>
+				<a href="/library"><img alt="홈 버튼" src="/library/images/homebtn.png"></a>
 				<!-- 검색 기능 아직 없음 -->
 				<form class="search" action="/library/bookList?menu=search"  method="post">
 					<input name = "searchBook" type="text" placeholder="검색어를 입력하세요." required="required">
