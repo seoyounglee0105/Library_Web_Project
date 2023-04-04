@@ -174,7 +174,7 @@ public class BookListController extends HttpServlet {
 		} else if ("search".equals(menu)) {
 			String search = request.getParameter("searchBook");
 			
-			// 공백으로만 이뤄진 문자열이 입력되었다면
+			// 공백으로만 이뤄진 문자열이 입력되었다면 실행 X
 			if (search.replace(" ", "").equals("") == false) {
 				resultList = bookService.searchBooks(search);
 				

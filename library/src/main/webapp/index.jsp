@@ -11,7 +11,7 @@
 
 	// 추천 책 정보 가져오기
 	BookService bookService = new BookService();
-	ArrayList<BookDTO> topBooks = bookService.viewTopBook(13);
+	ArrayList<BookDTO> topBooks = bookService.viewTopBook(15);
 	
 	// 가져올 책들을 랜덤으로 정함
         int[] numArr = new int[4];
@@ -19,7 +19,7 @@
         Random r = new Random();  
         for (int i = 0; i < numArr.length; i++) {
             // 1 ~ 10 범위의 정수 난수를 생성해서 배열에 넣기
-            numArr[i] = r.nextInt(13);
+            numArr[i] = r.nextInt(15);
             // 중복 제거
             for (int j = 0; j < i; j++) {
                 if (numArr[i] == numArr[j]) {
@@ -27,9 +27,6 @@
                 }
             }
         } // end of for
-	for (int i = 0; i < 4; i++) {
-		System.out.println(numArr[i]);
-	}
 %>
 
 <!DOCTYPE html>

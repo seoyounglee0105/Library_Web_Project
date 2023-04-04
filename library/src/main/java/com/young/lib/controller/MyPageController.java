@@ -188,6 +188,7 @@ public class MyPageController extends HttpServlet {
 			request.setAttribute("notReturnList", notReturnList); // 대여 중인 도서
 			request.setAttribute("result", result);
 			request.getRequestDispatcher("myPage/myBooks.jsp").forward(request, response);	
+			return;
 			
 		// 회원 정보 수정 전 비밀번호 확인
 		} else if ("pwCheck".equals(action)) {
@@ -201,10 +202,11 @@ public class MyPageController extends HttpServlet {
 				UserDTO userDTO = userService.userInfo(userId);
 				request.setAttribute("user", userDTO);
 				request.getRequestDispatcher("myPage/userInfo_update.jsp").forward(request, response);
-			} 
-			// 입력받은 비밀번호가 틀렸다면 (result == 0)
-			request.setAttribute("result", result);
-			request.getRequestDispatcher("myPage/userInfo_check.jsp").forward(request, response);
+			}  else {
+				// 입력받은 비밀번호가 틀렸다면 (result == 0)
+				request.setAttribute("result", result);
+				request.getRequestDispatcher("myPage/userInfo_check.jsp").forward(request, response);				
+			}
 			
 		// 회원 정보 수정
 		} else if ("updateInfo".equals(action)) {
@@ -253,7 +255,7 @@ public class MyPageController extends HttpServlet {
 			request.setAttribute("userReviewList", userReviewList);
 			
 			request.getRequestDispatcher("myPage/manageReview.jsp").forward(request, response);
-			
+			return;
 		}
 		
 		// 회원 정보
@@ -297,6 +299,9 @@ public class MyPageController extends HttpServlet {
 		int bookCount = availableBookList.size();
 		request.setAttribute("reviewCount", bookCount);
 		request.setAttribute("bookList", availableBookList);
-		request.getRequestDispatcher("myPage/main.jsp").forward(request, response);			
+		try {
+			request.getRequestDispatcher("myPage/main.jsp").forward(request, response);						
+		} catch (Exception e) {
+		}
 	}
 }
