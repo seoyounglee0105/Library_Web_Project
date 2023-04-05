@@ -22,7 +22,6 @@ public class BookListController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BookService bookService = new BookService();
-		request.setCharacterEncoding("UTF-8");
 		ArrayList<BookDTO> resultList = new ArrayList<>();
 		
 		String menu = request.getParameter("menu");

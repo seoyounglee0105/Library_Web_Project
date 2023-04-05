@@ -26,7 +26,6 @@ public class BookDetailController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		BookService bookService = new BookService();
 		CheckoutService checkoutService = new CheckoutService();
 		ReviewService reviewService = new ReviewService();

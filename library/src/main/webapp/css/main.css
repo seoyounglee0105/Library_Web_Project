@@ -26,11 +26,16 @@ body {
 	align-items: center;
 }
 
+.home_icon {
+	width: 30px;
+	height: 30px;
+}
+
 .header_logout {
 	height: 35px;
 	background-color: #1A606B;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	align-items: center;
 }
 
@@ -54,8 +59,9 @@ li {
 .li_name {
 	color: buttonhighlight;
 	font-size: 20px;
-	margin-left: 20px;
 	font-weight: 400;
+	padding: 0 20px;
+	margin-right: 10px;
 }
 
 a {
@@ -70,7 +76,7 @@ a {
 	margin-right: 10px;
 }
 
-.right_ul li a:hover {
+.right_ul li a:hover, .li_name:hover {
 	color: #C6EBDE;
 }
 

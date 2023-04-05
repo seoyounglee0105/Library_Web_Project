@@ -10,7 +10,9 @@
     
 		<div class="top-container">
 			<header class="header_login">
-				<h4 class="li_name"><%=name %> 님</h4>
+				<div>
+					<a href="/library" class="li_name">홈으로</a>
+				</div>
 				<ul class="right_ul">
 					<li><a href="/library/intro/logout.jsp" onclick="return confirm('로그아웃하시겠습니까?')">로그아웃</a>
 					<li><a href="/library/myPage">마이페이지</a>

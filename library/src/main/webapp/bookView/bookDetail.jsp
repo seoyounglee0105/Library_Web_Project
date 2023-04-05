@@ -124,7 +124,7 @@
 									<span class="review_span">리뷰 ${reviewList.size()}개</span>
 								</c:when>
 								<c:otherwise>
-									<a href="/library/bookDetail?bookId=${book.id}&action=selectReview" class="review">리뷰 ${reviewList.size()}개</a>
+									<a href="/library/bookDetail?bookId=${book.id}&action=selectReview" class="review">리뷰 ${reviewList.size()}개 보기</a>
 								</c:otherwise>
 							</c:choose>
 							<span style="color: #F5CF14; margin: 0 5px;'">
@@ -195,7 +195,7 @@
 				<hr style="margin-bottom: 10px;">
 				<h3 style="color: #1A606B; font-size: 20px;">책 소개</h3>
 				
-				<p class="book_description" style="text-indent: 10px;">${book.description}</p>
+				<p class="book_description">${book.description}</p>
 			</section>
 		</div>
 		<jsp:include page="../layout/footer.jsp" />

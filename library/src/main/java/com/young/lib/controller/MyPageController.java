@@ -33,7 +33,6 @@ public class MyPageController extends HttpServlet {
 		UserService userService = new UserService();
 		BookService bookService = new BookService();
 		ReviewService reviewService = new ReviewService();
-		request.setCharacterEncoding("UTF-8");
 		String userId = (String) request.getSession().getAttribute("id");
 		String menu = request.getParameter("menu");
 		String action = request.getParameter("action");

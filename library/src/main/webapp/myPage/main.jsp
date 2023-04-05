@@ -65,6 +65,20 @@
 		padding: 3px 0px 3px 10px;
 	}
 	
+	.pen {
+		display: flex;
+		align-items: center;
+	}
+	
+	.pen img {
+		width: 30px;
+		height: 30px;
+	}
+	
+	.pen span:hover {
+		color: #80BFB5 !important;
+	}
+	
 </style>
 </head>
 <body>
@@ -123,7 +137,11 @@
 					</c:if>
 					<!-- 리뷰 작성 가능한 도서가 있다면 -->
 					<c:if test="${reviewCount != 0}">
-						<h3><a href="/library/myPage?menu=writeReview">리뷰 작성</a></h3>
+						<h3><a href="/library/myPage?menu=writeReview" class="pen">
+								<span style="color: #1A606B;">리뷰 작성&nbsp;</span>
+								<img src="/library/images/pen.png">
+							</a>
+						</h3>
 						<p style="color: gray; font-size: 17px;">작성 가능한 ${reviewCount}권의 도서가 있습니다.</p>						
 					</c:if>								
 			</section>

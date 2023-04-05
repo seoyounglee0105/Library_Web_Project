@@ -3,6 +3,9 @@
 
 		<div class="top-container">
 			<header class="header_logout">
+				<div>
+					<a href="/library" class="li_name">홈으로</a>
+				</div>
 				<ul class="right_ul">
 					<li><a href="/library/intro?menu=login">로그인</a>
 					<li><a href="/library/intro?menu=signUp">회원가입</a>
