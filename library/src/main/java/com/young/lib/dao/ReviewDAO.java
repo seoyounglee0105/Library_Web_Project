@@ -68,7 +68,6 @@ public class ReviewDAO implements IReviewDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setWriteDate(rs.getString("write_date"));
 				resultList.add(dto);
-				System.out.println();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

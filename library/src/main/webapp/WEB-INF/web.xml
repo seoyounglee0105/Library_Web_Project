@@ -18,4 +18,9 @@
   	<error-code>500</error-code>
   	<location>/errorPage.jsp</location>
   </error-page>
+  
+  <context-param>
+  	<param-name>imgDir</param-name>
+  	<param-value>D:\myGit\Library_web_project\library\src\main\webapp\images\uploadImages\</param-value>
+  </context-param>
 </web-app>

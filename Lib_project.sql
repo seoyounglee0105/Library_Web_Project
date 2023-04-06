@@ -58,6 +58,19 @@ CREATE TABLE review (
     FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE
 );
 
+-- 리뷰 이미지 테이블
+CREATE TABLE review_image (
+	review_id INT PRIMARY KEY,
+    origin_image VARCHAR(100) NOT NULL,
+    uuid_image VARCHAR(200) NOT NULL,
+    FOREIGN KEY (review_id) REFERENCES review(id) ON DELETE CASCADE
+);
+
+SELECT * FROM review;
+
+SELECT * FROM review_image;
+DELETE FROM review WHERE id = 23;
+
 INSERT INTO book (name, writer, publisher, image, category_id, check_out_count, description)
 VALUES 
 	('어린 왕자', '앙투안 드 생텍쥐페리', '더스토리', 'images/0.jpg', 2, 576, '생텍쥐페리는 프랑스의 유명한 소설가로, 그의 작품 <어린 왕자>는 전 세계적으로 <성경>, <자본론> 다음으로 많이 읽히는 책이다. 이 책은 1943년 뉴욕에서 출판된 프랑스어판 초판본 표지디자인을 그대로 되살렸다. 어둡지도 너무 빛바래지도 않은 노란색 표지와 어린 왕자의 연둣빛 옷의 색감을 최대한 살려냈고, 본문에는 생텍쥐페리의 친필 사인이 들어 있다. 또한 작가가 직접 그린 일러스트들이 시적이고 아름다운 어린 왕자의 이야기를 더욱 풍성하게 만들어준다.'),

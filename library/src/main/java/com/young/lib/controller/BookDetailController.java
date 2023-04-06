@@ -42,6 +42,13 @@ public class BookDetailController extends HttpServlet {
 			String bookName = bookService.bookInfo(review.getBookId()).getName();
 			request.setAttribute("bookName", bookName);
 			
+			try {
+				String imageName = reviewService.selectReviewImage(reviewId).getUuidImage();
+				request.setAttribute("imageName", imageName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			request.getRequestDispatcher("bookView/bookReviewDetail.jsp").forward(request, response);
 			
 		} else {

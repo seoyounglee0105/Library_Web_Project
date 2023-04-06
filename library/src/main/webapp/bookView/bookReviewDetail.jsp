@@ -110,7 +110,16 @@
 						<span>${review.writeDate}</span>
 					</div>
 					<div>
-						<textarea cols="83" rows="10" readonly="readonly" class="content">${review.content}</textarea>
+						<c:choose>
+							<c:when test="${imageName != null}">
+								<textarea cols="56" rows="10" readonly="readonly" class="content">${review.content}</textarea>								
+								<img alt="리뷰 이미지" src="/library/images/uploadImages/${imageName}" style="width: 212px; height: 262px; margin-left: 30px;">			
+							</c:when>
+							<c:otherwise>
+								<textarea cols="83" rows="10" readonly="readonly" class="content">${review.content}</textarea>								
+							</c:otherwise>
+						</c:choose>
+					
 					</div>
 				</div>
 			</section>

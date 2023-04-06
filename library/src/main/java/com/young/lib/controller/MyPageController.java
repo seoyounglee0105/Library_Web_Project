@@ -1,19 +1,26 @@
 package com.young.lib.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
-import com.young.lib.dao.UserDAO;
+import com.young.lib.dao.ReviewImageDAO;
 import com.young.lib.dto.BookDTO;
 import com.young.lib.dto.CheckoutDTO;
 import com.young.lib.dto.ReviewDTO;
+import com.young.lib.dto.ReviewImageDTO;
 import com.young.lib.dto.UserDTO;
 import com.young.lib.service.BookService;
 import com.young.lib.service.CheckoutService;
@@ -21,6 +28,7 @@ import com.young.lib.service.ReviewService;
 import com.young.lib.service.UserService;
 
 @WebServlet("/myPage")
+@MultipartConfig
 public class MyPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -228,14 +236,54 @@ public class MyPageController extends HttpServlet {
 			int star = Integer.parseInt(request.getParameter("star"));
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
+			Part filePart = request.getPart("file");
 			
 			int responseType = 0;
 			// 도서명을 선택하지 않았다면 (-1)
 			if (bookId == -1) {
 				responseType = 2;
 			} else {
-				ReviewDTO dto = new ReviewDTO(userId, bookId, star, title, content);
-				responseType = reviewService.writeReview(dto);
+				ReviewDTO reviewDto = new ReviewDTO(userId, bookId, star, title, content);
+				responseType = reviewService.writeReview(reviewDto);
+				
+				// 이미지가 있다면
+				if (filePart != null) {
+					InputStream fileContent = filePart.getInputStream();
+					OutputStream outputStream = null;
+					try {
+						UUID uuid = UUID.randomUUID();
+						String uuidImage = uuid + "_" + filePart.getSubmittedFileName();
+						
+						String imgDir = getServletContext().getInitParameter("imgDir");
+						
+						File file = new File(imgDir, uuidImage);
+						outputStream = new FileOutputStream(file);
+						byte[] buffer = new byte[1024];
+						int length;
+						while ((length = fileContent.read(buffer)) != -1) {
+							outputStream.write(buffer, 0, length);
+						}
+						
+						// DB에 저장
+						ReviewDTO dto = reviewService.selectReviewByUserAndBook(userId, bookId);
+						int reviewId = dto.getId();
+						String originImage = filePart.getSubmittedFileName();
+						// uuidImage
+						
+						ReviewImageDTO reviewImageDTO = new ReviewImageDTO(reviewId, originImage, uuidImage);
+						reviewService.insertReviewImage(reviewImageDTO);
+						
+					} catch (Exception e) {
+						System.out.println("파일 이상");
+					} finally {
+						fileContent.close();
+						outputStream.flush();
+						
+						if (outputStream != null) {
+							outputStream.close();
+						}
+					}
+				}
 			}
 			request.setAttribute("responseReview", responseType);
 			// main.jsp로

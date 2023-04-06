@@ -3,14 +3,18 @@ package com.young.lib.service;
 import java.util.ArrayList;
 
 import com.young.lib.dao.ReviewDAO;
+import com.young.lib.dao.ReviewImageDAO;
 import com.young.lib.dto.ReviewDTO;
+import com.young.lib.dto.ReviewImageDTO;
 
 public class ReviewService {
 	
 	private ReviewDAO reviewDAO;
+	private ReviewImageDAO reviewImageDAO;
 	
 	public ReviewService() {
 		reviewDAO = new ReviewDAO();
+		reviewImageDAO = new ReviewImageDAO();
 	}
 
 	// 리뷰 작성
@@ -53,6 +57,20 @@ public class ReviewService {
 		int resultCount = 0;
 		resultCount = reviewDAO.delete(reviewId);
 		return resultCount;
+	}
+	
+	// 리뷰 이미지 추가
+	public int insertReviewImage(ReviewImageDTO reviewImageDTO) {
+		int resultCount = 0;
+		resultCount = reviewImageDAO.insert(reviewImageDTO);
+		return resultCount;
+	}
+	
+	// 리뷰 이미지 조회
+	public ReviewImageDTO selectReviewImage(int reviewId) {
+		ReviewImageDTO resultDto = null;
+		resultDto = reviewImageDAO.select(reviewId);
+		return resultDto;
 	}
 	
 }

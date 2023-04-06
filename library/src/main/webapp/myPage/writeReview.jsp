@@ -93,7 +93,7 @@
 			<section style="flex-basis: 800px;">
 				<h3>리뷰 작성</h3>
 				<!-- ${bookList}로 리뷰 작성 가능한 책 리스트 가져올 수 있음 -->
-				<form action="/library/myPage?action=writeReview" method="post" class="writeReview">
+				<form action="/library/myPage?action=writeReview" method="post" class="writeReview" enctype="multipart/form-data">
 					<div class="form-row" style="margin-bottom: 20px;">
 						<select name="bookId">
 							<option value="-1">도서를 선택해주세요.</option>
@@ -114,6 +114,9 @@
 					</div>
 					<div class="form-row">
 						<textarea name="content" cols="72" rows="10" placeholder="내용을 입력해주세요." required="required" class="content" ></textarea>
+					</div>
+					<div class="form-row">
+						<input type="file" class="form_file" id="file" name="file">
 					</div>
 					<div class="form-btn">
 						<button class="btn" type="submit" onclick="return confirm('작성을 완료하셨습니까?')">완료</button>
