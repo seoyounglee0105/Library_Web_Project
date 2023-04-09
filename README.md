@@ -15,6 +15,7 @@
 
 ## 기술 스택
 - `JAVA`
+- `MySQL`
 - `HTML/CSS`
 - `JSP`
 
