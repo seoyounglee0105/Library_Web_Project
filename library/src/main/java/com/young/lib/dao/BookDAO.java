@@ -105,6 +105,7 @@ public class BookDAO implements IBookDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%" + search + "%");
 			rs = pstmt.executeQuery();
+			System.out.println(search);
 			
 			while (rs.next()) {
 				BookDTO dto = new BookDTO();

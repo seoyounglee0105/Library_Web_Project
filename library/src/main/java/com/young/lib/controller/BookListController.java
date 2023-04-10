@@ -23,6 +23,7 @@ public class BookListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BookService bookService = new BookService();
 		ArrayList<BookDTO> resultList = new ArrayList<>();
+		request.setCharacterEncoding("UTF-8");
 		
 		String menu = request.getParameter("menu");
 		String orderby = request.getParameter("orderby");
@@ -38,10 +39,6 @@ public class BookListController extends HttpServlet {
 			}
 			request.setAttribute("list", resultList);
 			
-			// 페이지 수 구할 예정
-			// int pageCount = resultList.size();
-			// request.setAttribute("pageCount", pageCount);
-			
 			request.getRequestDispatcher("bookView/bookList.jsp").forward(request, response);
 			
 		} else if ("it".equals(menu)) {
@@ -55,10 +52,6 @@ public class BookListController extends HttpServlet {
 				resultList = bookService.viewCategoryBooks(1);
 			}
 			request.setAttribute("list", resultList);
-			
-			// 페이지 수 구할 예정
-			// int pageCount = resultList.size();
-			// request.setAttribute("pageCount", pageCount);
 			
 			request.getRequestDispatcher("bookView/bookList.jsp").forward(request, response);			
 			
@@ -74,10 +67,6 @@ public class BookListController extends HttpServlet {
 			}
 			request.setAttribute("list", resultList);
 			
-			// 페이지 수 구할 예정
-			// int pageCount = resultList.size();
-			// request.setAttribute("pageCount", pageCount);
-			
 			request.getRequestDispatcher("bookView/bookList.jsp").forward(request, response);			
 
 		} else if ("hobby".equals(menu)) {
@@ -91,10 +80,6 @@ public class BookListController extends HttpServlet {
 				resultList = bookService.viewCategoryBooks(3);
 			}
 			request.setAttribute("list", resultList);
-			
-			// 페이지 수 구할 예정
-			// int pageCount = resultList.size();
-			// request.setAttribute("pageCount", pageCount);
 			
 			request.getRequestDispatcher("bookView/bookList.jsp").forward(request, response);			
 
@@ -110,10 +95,6 @@ public class BookListController extends HttpServlet {
 			}
 			request.setAttribute("list", resultList);
 			
-			// 페이지 수 구할 예정
-			// int pageCount = resultList.size();
-			// request.setAttribute("pageCount", pageCount);
-			
 			request.getRequestDispatcher("bookView/bookList.jsp").forward(request, response);			
 
 		} else if ("improvement".equals(menu)) {
@@ -127,10 +108,6 @@ public class BookListController extends HttpServlet {
 				resultList = bookService.viewCategoryBooks(5);
 			}
 			request.setAttribute("list", resultList);
-			
-			// 페이지 수 구할 예정
-			// int pageCount = resultList.size();
-			// request.setAttribute("pageCount", pageCount);
 			
 			request.getRequestDispatcher("bookView/bookList.jsp").forward(request, response);			
 
@@ -146,10 +123,6 @@ public class BookListController extends HttpServlet {
 			}
 			request.setAttribute("list", resultList);
 			
-			// 페이지 수 구할 예정
-			// int pageCount = resultList.size();
-			// request.setAttribute("pageCount", pageCount);
-			
 			request.getRequestDispatcher("bookView/bookList.jsp").forward(request, response);			
 
 		} else if ("child".equals(menu)) {
@@ -164,10 +137,6 @@ public class BookListController extends HttpServlet {
 			}
 			request.setAttribute("list", resultList);
 			
-			// 페이지 수 구할 예정
-			// int pageCount = resultList.size();
-			// request.setAttribute("pageCount", pageCount);
-			
 			request.getRequestDispatcher("bookView/bookList.jsp").forward(request, response);			
 
 		} else if ("search".equals(menu)) {
@@ -176,10 +145,7 @@ public class BookListController extends HttpServlet {
 			// 공백으로만 이뤄진 문자열이 입력되었다면 실행 X
 			if (search.replace(" ", "").equals("") == false) {
 				resultList = bookService.searchBooks(search);
-				
-				// 페이지 수 구할 예정
-				// int pageCount = resultList.size();
-				// request.setAttribute("pageCount", pageCount);				
+			
 			}
 			
 			request.setAttribute("list", resultList);
