@@ -247,7 +247,7 @@ public class MyPageController extends HttpServlet {
 				responseType = reviewService.writeReview(reviewDto);
 				
 				// 이미지가 있다면
-				if (filePart != null) {
+				if (filePart.getSubmittedFileName().equals("") == false) {
 					InputStream fileContent = filePart.getInputStream();
 					OutputStream outputStream = null;
 					try {
